@@ -58,22 +58,28 @@ function addHeatPoint(x, y) {
     frame = frame || window.requestAnimationFrame(draw);
 }
 
-// Handle heatmap interaction via mouse
-canvas.addEventListener('mousemove', (e) => {
-    addHeatPoint(e.offsetX, e.offsetY);
-});
-
-// Handle heatmap interaction via touch
-canvas.addEventListener('touchmove', (e) => {
+// Debug logs for touch events
+canvas.addEventListener('touchstart', (e) => {
+    console.log('Touchstart detected:', e.touches[0]);
     e.preventDefault(); // Prevent scrolling
     const pos = getTouchPos(canvas, e);
     addHeatPoint(pos.x, pos.y);
 });
 
-canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault();
+canvas.addEventListener('touchmove', (e) => {
+    console.log('Touchmove detected:', e.touches[0]);
+    e.preventDefault(); // Prevent scrolling
     const pos = getTouchPos(canvas, e);
     addHeatPoint(pos.x, pos.y);
+});
+
+canvas.addEventListener('touchend', () => {
+    console.log('Touchend detected.');
+});
+
+// Handle mouse interaction (for desktop)
+canvas.addEventListener('mousemove', (e) => {
+    addHeatPoint(e.offsetX, e.offsetY);
 });
 
 // Handle button click

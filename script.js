@@ -10,7 +10,7 @@ const canvas = get('canvas');
 const button = get('button');
 
 // Initialize heatmap
-const heat = simpleheat(canvas).data([]).max(10); // Reduced max intensity for subtle touch
+const heat = simpleheat(canvas).data([]).max(18);
 let frame;
 
 // Resize canvas dynamically
@@ -35,13 +35,13 @@ function draw() {
 
 // Function to decay heatmap points over time
 function decayHeatmap() {
-    heat._data = heat._data.map(([x, y, intensity]) => [x, y, intensity * 0.95]) // Faster decay for reactivity
+    heat._data = heat._data.map(([x, y, intensity]) => [x, y, intensity * 0.98]) // Reduce intensity
                           .filter(([x, y, intensity]) => intensity > 0.01);     // Remove weak points
     if (!frame) frame = window.requestAnimationFrame(draw);
 }
 
 // Start decay process
-setInterval(decayHeatmap, 50); // Decay every 50ms for smoother updates
+setInterval(decayHeatmap, 100); // Decay every 100ms
 
 // Map touch coordinates to canvas
 function getTouchPos(canvas, touchEvent) {
@@ -52,9 +52,9 @@ function getTouchPos(canvas, touchEvent) {
     };
 }
 
-// Add touch data to the heatmap
+// Add heatmap point
 function addHeatPoint(x, y) {
-    heat.add([x, y, 0.5]); // Lower intensity for lighter touches
+    heat.add([x, y, 1]);
     frame = frame || window.requestAnimationFrame(draw);
 }
 
@@ -71,16 +71,9 @@ canvas.addEventListener('touchmove', (e) => {
 });
 
 canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Prevent scrolling
+    e.preventDefault();
     const pos = getTouchPos(canvas, e);
     addHeatPoint(pos.x, pos.y);
-});
-
-canvas.addEventListener('touchend', (e) => {
-    e.preventDefault(); // Prevent scrolling
-    if (e.touches.length === 0) {
-        draw(); // Trigger a final draw on touch release
-    }
 });
 
 // Handle button click

@@ -35,11 +35,11 @@ function draw() {
 }
 
 // Function to decay heatmap points over time
-function decayHeatmap() {
-    heat._data = heat._data.map(([x, y, intensity]) => [x, y, intensity * 0.98]) // Reduce intensity
-                          .filter(([x, y, intensity]) => intensity > 0.01);     // Remove weak points
-    if (!frame) frame = window.requestAnimationFrame(draw);
-}
+//function decayHeatmap() {
+//  heat._data = heat._data.map(([x, y, intensity]) => [x, y, intensity * 0.98]) // Reduce intensity
+//                        .filter(([x, y, intensity]) => intensity > 0.01);     // Remove weak points
+//if (!frame) frame = window.requestAnimationFrame(draw);
+//}
 
 // Start decay process
 setInterval(decayHeatmap, 100); // Decay every 100ms

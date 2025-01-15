@@ -43,6 +43,15 @@ function decayHeatmap() {
 // Start decay process
 setInterval(decayHeatmap, 100); // Decay every 100ms
 
+// Map touch coordinates to canvas
+function getTouchPos(canvas, touchEvent) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+        x: (touchEvent.touches[0].clientX - rect.left) * (canvas.width / rect.width),
+        y: (touchEvent.touches[0].clientY - rect.top) * (canvas.height / rect.height)
+    };
+}
+
 // Handle heatmap interaction via mouse
 canvas.addEventListener('mousemove', (e) => {
     heat.add([e.offsetX, e.offsetY, 1]);
@@ -52,8 +61,16 @@ canvas.addEventListener('mousemove', (e) => {
 // Handle heatmap interaction via touch
 canvas.addEventListener('touchmove', (e) => {
     e.preventDefault(); // Prevent scrolling
-    const touch = e.touches[0];
-    heat.add([touch.clientX, touch.clientY, 1]);
+    const pos = getTouchPos(canvas, e);
+    heat.add([pos.x, pos.y, 1]);
+    frame = frame || window.requestAnimationFrame(draw);
+});
+
+// Optional: Respond to touchstart for immediate feedback
+canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const pos = getTouchPos(canvas, e);
+    heat.add([pos.x, pos.y, 1]);
     frame = frame || window.requestAnimationFrame(draw);
 });
 

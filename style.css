@@ -7,7 +7,7 @@ body {
 
 #canvas {
     width: 100vw;
-    height: 500vh;
+    height: 1000vh;
     display: block;
     position: absolute;
     top: 0;

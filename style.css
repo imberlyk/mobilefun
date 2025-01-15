@@ -1,11 +1,28 @@
 body {
     margin: 0;
     overflow: hidden;
+    position: relative;
 }
 
 #canvas {
     width: 100vw;
     height: 100vh;
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Behind the button */
 }
 
+#button {
+    position: absolute;
+    top: 20px; /* Position the button */
+    left: 20px;
+    z-index: 2; /* Above the canvas */
+    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

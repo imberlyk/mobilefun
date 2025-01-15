@@ -1,13 +1,13 @@
 body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: scroll;
     position: relative;
 }
 
 #canvas {
     width: 100vw;
-    height: 100vh;
+    height: 500vh;
     display: block;
     position: absolute;
     top: 0;
@@ -17,19 +17,23 @@ body {
 
 #button {
     position: absolute;
-    left:20%;
-    top: 50vh;
+    left:30px;
+    top: 300vh;
     font-size: 30px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     z-index: 2;
-    padding: 10px 5px;
+    padding: 10px 100px;
     background-color:transparent;
-    border: 3px solid rgb(255, 255, 255);
+    border: 3px solid rgb(169, 20, 20);
     color: white;
     cursor: pointer;
 }
 
-
+.container{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
 
 span.ripple {
     position: absolute;
@@ -49,7 +53,7 @@ span.ripple {
 
 h1{
     font-size: 100px;
-    left: 50%;
+    left: 20%;
     z-index: 3;
     color: rgb(0, 42, 255);
     position: absolute;
@@ -57,4 +61,39 @@ h1{
 
 }
 
-h1:hover
+h2{
+    font-size: 100px;
+    left: 20%;
+    top: 30px;
+    z-index: 3;
+    color: rgb(0, 42, 255);
+    position: absolute;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+}
+
+h3{
+    font-size: 100px;
+    left: 20%;
+    top: 30px;
+    z-index: 3;
+    color: rgb(0, 42, 255);
+    position: absolute;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+}
+
+
+p{
+    font-size: 20px;
+    display: block;
+    width: 70%;
+    line-height: 30px;
+    padding-left: 40px;
+    top: 300px;
+    z-index: 3;
+    color: rgb(0, 42, 255);
+    position: absolute;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+}

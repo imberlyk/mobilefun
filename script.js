@@ -1,3 +1,4 @@
+
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                                window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
@@ -45,7 +46,13 @@ setInterval(decayHeatmap, 100); // Decay every 100ms
 
 // Handle heatmap interaction via mouse
 canvas.addEventListener('mousemove', (e) => {
-    heat.add([e.offsetX, e.offsetY, 1]);
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    const x = (e.clientX - rect.left) * dpr;
+    const y = (e.clientY - rect.top) * dpr;
+
+    heat.add([x, y, 1]);
     frame = frame || window.requestAnimationFrame(draw);
 });
 
@@ -53,34 +60,40 @@ canvas.addEventListener('mousemove', (e) => {
 canvas.addEventListener('touchmove', (e) => {
     e.preventDefault(); // Prevent scrolling
     const touch = e.touches[0];
-    heat.add([touch.clientX, touch.clientY, 1]);
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    const x = (touch.clientX - rect.left) * dpr;
+    const y = (touch.clientY - rect.top) * dpr;
+
+    heat.add([x, y, 1]);
     frame = frame || window.requestAnimationFrame(draw);
 });
 
-
+// Ripple effect for button clicks
 function createRipple(event) {
     const button = event.currentTarget;
-  
+
     const circle = document.createElement("span");
     const diameter = Math.max(button.clientWidth, button.clientHeight);
     const radius = diameter / 2;
-  
+
     circle.style.width = circle.style.height = `${diameter}px`;
     circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
     circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
     circle.classList.add("ripple");
-  
+
     const ripple = button.getElementsByClassName("ripple")[0];
-  
+
     if (ripple) {
-      ripple.remove();
+        ripple.remove();
     }
-  
+
     button.appendChild(circle);
-  }
-  
-  const buttons = document.getElementsByTagName("button");
-  for (const button of buttons) {
+}
+
+// Add ripple effect to all buttons
+const buttons = document.getElementsByTagName("button");
+for (const button of buttons) {
     button.addEventListener("click", createRipple);
-  }
-  
+}

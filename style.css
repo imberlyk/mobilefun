@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden;
     font-family: Arial, sans-serif;
 }
 
@@ -19,6 +19,7 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 1; 
+    pointer-events: auto;
 }
 
 .content {
@@ -28,16 +29,17 @@ body {
     color: rgb(0, 42, 255);
 }
 
+h1, h2 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 10px 0;
+}
+
 h1 {
     font-size: 36px;
-    margin: 20px 0;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 h2 {
     font-size: 28px;
-    margin: 10px 0;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 p {

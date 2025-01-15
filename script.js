@@ -1,15 +1,7 @@
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                                window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
-// Helper function to get elements by ID
-function get(id) {
-    return document.getElementById(id);
-}
-
-const canvas = get('canvas');
-const button = get('button');
-
-// Initialize heatmap
+const canvas = document.getElementById('canvas');
 const heat = simpleheat(canvas).data([]).max(18);
 let frame;
 
@@ -19,7 +11,6 @@ function resizeCanvas() {
     canvas.width = canvas.offsetWidth * dpr;
     canvas.height = canvas.offsetHeight * dpr;
     canvas.getContext('2d').scale(dpr, dpr);
-
     heat.resize();
     heat.draw();
 }
@@ -33,23 +24,20 @@ function draw() {
     frame = null;
 }
 
-// Function to decay heatmap points over time
+// Decay heatmap points over time
 function decayHeatmap() {
-    heat._data = heat._data.map(([x, y, intensity]) => [x, y, intensity * 0.98]) // Reduce intensity
-                          .filter(([x, y, intensity]) => intensity > 0.01);     // Remove weak points
+    heat._data = heat._data.map(([x, y, intensity]) => [x, y, intensity * 0.98])
+                          .filter(([x, y, intensity]) => intensity > 0.01);
     if (!frame) frame = window.requestAnimationFrame(draw);
 }
+setInterval(decayHeatmap, 100);
 
-// Start decay process
-setInterval(decayHeatmap, 100); // Decay every 100ms
-
-// Map touch coordinates to canvas
-function getTouchPos(canvas, touchEvent) {
+// Map touch/mouse coordinates to canvas
+function getCoordinates(e) {
     const rect = canvas.getBoundingClientRect();
-    return {
-        x: (touchEvent.touches[0].clientX - rect.left) * (canvas.width / rect.width),
-        y: (touchEvent.touches[0].clientY - rect.top) * (canvas.height / rect.height)
-    };
+    const x = (e.clientX || e.touches[0].clientX) - rect.left;
+    const y = (e.clientY || e.touches[0].clientY) - rect.top;
+    return { x: x * (canvas.width / rect.width), y: y * (canvas.height / rect.height) };
 }
 
 // Add heatmap point
@@ -58,31 +46,21 @@ function addHeatPoint(x, y) {
     frame = frame || window.requestAnimationFrame(draw);
 }
 
-// Debug logs for touch events
-canvas.addEventListener('touchstart', (e) => {
-    console.log('Touchstart detected:', e.touches[0]);
-    e.preventDefault(); // Prevent scrolling
-    const pos = getTouchPos(canvas, e);
-    addHeatPoint(pos.x, pos.y);
+// Handle mouse and touch events
+canvas.addEventListener('mousemove', (e) => {
+    const { x, y } = getCoordinates(e);
+    addHeatPoint(x, y);
 });
 
 canvas.addEventListener('touchmove', (e) => {
-    console.log('Touchmove detected:', e.touches[0]);
-    e.preventDefault(); // Prevent scrolling
-    const pos = getTouchPos(canvas, e);
-    addHeatPoint(pos.x, pos.y);
+    e.preventDefault();
+    const { x, y } = getCoordinates(e);
+    addHeatPoint(x, y);
 });
 
-canvas.addEventListener('touchend', () => {
-    console.log('Touchend detected.');
-});
-
-// Handle mouse interaction (for desktop)
-canvas.addEventListener('mousemove', (e) => {
-    addHeatPoint(e.offsetX, e.offsetY);
-});
-
-// Handle button click
-button.addEventListener('click', () => {
-    alert('Button clicked!');
+// Optional: Add initial point on touchstart
+canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const { x, y } = getCoordinates(e);
+    addHeatPoint(x, y);
 });

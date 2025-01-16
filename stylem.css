@@ -35,5 +35,5 @@ body {
 }
 
 #viewport{
-    display: none;
+    background-color: transparent;
 }

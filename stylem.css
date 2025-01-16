@@ -31,3 +31,7 @@ body {
     border-radius: 50%;
     pointer-events: none;
 }
+
+#viewport{
+    display: none;
+}

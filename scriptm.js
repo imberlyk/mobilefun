@@ -1,12 +1,12 @@
-// Include the Matter.js library
+
 const { Engine, Render, Runner, Bodies, Composite, Events } = Matter;
 
-// Create an engine
+// ENGINE
 const engine = Engine.create();
 const world = engine.world;
-world.gravity.y = 0; // Disable gravity
+world.gravity.y = 0; 
 
-// Create a renderer
+// RENDER
 const render = Render.create({
     element: document.body,
     engine: engine,

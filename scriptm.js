@@ -45,6 +45,26 @@ const pointers = [
 ];
 Composite.add(world, pointers);
 
+// Add divs with text all over the viewport
+const createTextDiv = (x, y, text) => {
+    const div = document.createElement('div');
+    div.textContent = text;
+    div.style.position = 'absolute';
+    div.style.left = `${x}px`;
+    div.style.top = `${y}px`;
+    div.style.fontSize = '24px';
+    div.style.color = '#333';
+    div.style.backgroundColor = '#fff';
+    div.style.padding = '5px';
+    div.style.borderRadius = '5px';
+    div.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
+    document.body.appendChild(div);
+};
+
+createTextDiv(300, 400, 'Welcome to the viewport!');
+createTextDiv(2000, 1200, 'Keep scrolling...');
+createTextDiv(4000, 2500, 'Almost there!');
+
 // Handle device orientation
 let scrollX = 0;
 let scrollY = 0;
@@ -64,7 +84,7 @@ window.addEventListener('deviceorientation', (event) => {
         scrollY = Math.max(0, Math.min(viewportHeight - window.innerHeight, scrollY));
 
         // Apply transform to simulate scrolling
-        render.canvas.style.transform = `translate(${-scrollX}px, ${-scrollY}px)`;
+        document.body.style.transform = `translate(${-scrollX}px, ${-scrollY}px)`;
     }
 });
 

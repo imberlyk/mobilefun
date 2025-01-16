@@ -5,7 +5,6 @@ const canvas = document.getElementById('canvas');
 const heat = simpleheat(canvas).data([]).max(18);
 let frame;
 
-
 function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
     canvas.width = canvas.offsetWidth * dpr;
@@ -18,7 +17,6 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-
 function draw() {
     heat.draw();
     frame = null;
@@ -28,33 +26,32 @@ function getCoordinates(e) {
     const rect = canvas.getBoundingClientRect();
     const clientX = e.clientX || (e.touches && e.touches[0].clientX);
     const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
     return {
-        x: (clientX - rect.left) * (canvas.width / rect.width),
-        y: (clientY - rect.top) * (canvas.height / rect.height),
+        x: (clientX - rect.left) * scaleX,
+        y: (clientY - rect.top) * scaleY,
     };
 }
-
 
 function addHeatPoint(x, y) {
     heat.add([x, y, 1]);
     frame = frame || window.requestAnimationFrame(draw);
 }
 
-
 canvas.addEventListener('mousemove', (e) => {
     const { x, y } = getCoordinates(e);
     addHeatPoint(x, y);
 });
 
-
 canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault(); // Prevent scrolling while interacting with the canvas
+    e.preventDefault();
     const { x, y } = getCoordinates(e);
     addHeatPoint(x, y);
 });
 
 canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const { x, y } = getCoordinates(e);
     addHeatPoint(x, y);
 });

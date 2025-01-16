@@ -61,7 +61,7 @@ const createTextDiv = (x, y, text) => {
 
 createTextDiv(300, 400, 'WOW');
 createTextDiv(2000, 1200, 'THIS MIGHT BE ANNOYING');
-createTextDiv(4000, 2500, 'COOOLLL');
+createTextDiv(800, 700, 'COOOLLL');
 
 // STARS
 const stars = [];
@@ -69,9 +69,9 @@ for (let i = 0; i < 50; i++) {
     const star = document.createElement('div');
     star.classList.add('star');
     star.style.position = 'absolute';
-    star.style.width = '20px';
-    star.style.height = '20px';
-    star.style.backgroundColor = '#ff0';
+    star.style.width = '80px';
+    star.style.height = '80px';
+    star.style.backgroundColor = '#14ff65';
     star.style.borderRadius = '50%';
     star.style.left = `${Math.random() * viewportWidth}px`;
     star.style.top = `${Math.random() * viewportHeight}px`;
@@ -83,7 +83,7 @@ for (let i = 0; i < 50; i++) {
 let scrollX = 0;
 let scrollY = 0;
 
-// Request motion and orientation permission for iOS devices
+// IPHONE
 if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
     const requestPermissionButton = document.createElement('button');
     requestPermissionButton.innerText = 'Enable Motion';

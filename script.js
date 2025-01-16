@@ -3,14 +3,15 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 
 const canvas = document.getElementById('canvas');
 const heat = simpleheat(canvas).data([]).max(18);
-heat.radius(30, 15); 
+heat.radius(30, 15);
 
 let frame;
 
 function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
-    canvas.width = canvas.offsetWidth * dpr;
-    canvas.height = canvas.offsetHeight * dpr;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
     canvas.getContext('2d').scale(dpr, dpr);
     heat.resize();
     heat.draw();
@@ -26,8 +27,8 @@ function draw() {
 
 function getCoordinates(e) {
     const rect = canvas.getBoundingClientRect();
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
     return {

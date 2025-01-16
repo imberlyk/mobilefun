@@ -8,6 +8,7 @@ a{
     position: absolute;
     z-index: 777;
     top: 20%;
+    margin: 20px;
 }
 
 .container {

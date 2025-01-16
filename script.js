@@ -42,11 +42,13 @@ function addHeatPoint(x, y) {
     frame = frame || window.requestAnimationFrame(draw);
 }
 
+// DESKTOP
 canvas.addEventListener('mousemove', (e) => {
     const { x, y } = getCoordinates(e);
     addHeatPoint(x, y);
 });
 
+// MOBILE
 canvas.addEventListener('touchmove', (e) => {
     e.preventDefault();
     const { x, y } = getCoordinates(e);
@@ -57,4 +59,9 @@ canvas.addEventListener('touchstart', (e) => {
     e.preventDefault();
     const { x, y } = getCoordinates(e);
     addHeatPoint(x, y);
+});
+
+//
+canvas.addEventListener('touchend', () => {
+    frame = null; 
 });

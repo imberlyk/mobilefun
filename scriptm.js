@@ -69,7 +69,33 @@ createTextDiv(4000, 2500, 'Almost there!');
 let scrollX = 0;
 let scrollY = 0;
 
-window.addEventListener('deviceorientation', (event) => {
+// Request motion and orientation permission for iOS devices
+if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+    const requestPermissionButton = document.createElement('button');
+    requestPermissionButton.innerText = 'Enable Motion';
+    requestPermissionButton.style.position = 'absolute';
+    requestPermissionButton.style.top = '10px';
+    requestPermissionButton.style.left = '10px';
+    requestPermissionButton.style.zIndex = '1000';
+    document.body.appendChild(requestPermissionButton);
+
+    requestPermissionButton.addEventListener('click', () => {
+        DeviceMotionEvent.requestPermission()
+            .then((response) => {
+                if (response === 'granted') {
+                    window.addEventListener('deviceorientation', handleDeviceOrientation);
+                } else {
+                    alert('Motion permission denied.');
+                }
+                requestPermissionButton.remove();
+            })
+            .catch(console.error);
+    });
+} else {
+    window.addEventListener('deviceorientation', handleDeviceOrientation);
+}
+
+function handleDeviceOrientation(event) {
     if (event.beta !== null && event.gamma !== null) {
         const tiltX = Math.max(-90, Math.min(90, event.beta)); // Front-to-back tilt
         const tiltY = Math.max(-90, Math.min(90, event.gamma)); // Left-to-right tilt
@@ -86,7 +112,7 @@ window.addEventListener('deviceorientation', (event) => {
         // Apply transform to simulate scrolling
         document.body.style.transform = `translate(${-scrollX}px, ${-scrollY}px)`;
     }
-});
+}
 
 // Resize handler to update renderer size
 window.addEventListener('resize', () => {

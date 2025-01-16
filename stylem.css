@@ -4,16 +4,16 @@ body, html {
     padding: 0;
     overflow: hidden;
     height: 100%;
-    background-color: #e0e0e0;
+    background-color: #fff709;
 }
 
 #viewport {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: #f9f9f9;
+    background: #4fa4ff;
     overflow: hidden;
-
+    touch-action: none; 
 }
 
 canvas {

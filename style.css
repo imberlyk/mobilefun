@@ -7,7 +7,7 @@ body {
 a{
     position: absolute;
     z-index: 777;
-    top: 100%;
+    top: 40%;
     margin: 20px;
 }
 
@@ -43,8 +43,4 @@ a{
     z-index: 2;
 }
 
-h1 {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    margin: 10px 0;
-}
 

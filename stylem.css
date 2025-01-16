@@ -23,3 +23,31 @@ canvas {
     left: 0;
     will-change: transform;
 }
+
+#motion-permission {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#motion-permission:hover {
+    background-color: #0056b3;
+}
+
+.star {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #ff0;
+    border-radius: 50%;
+    pointer-events: none;
+}

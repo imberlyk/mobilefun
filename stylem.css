@@ -3,6 +3,7 @@ body {
     overflow: hidden; 
     position: relative;
     background-image: url("tap.gif");
+    background-repeat: repeat-x;
 
     transform-origin: top left;
  

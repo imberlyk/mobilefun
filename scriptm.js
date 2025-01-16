@@ -65,13 +65,13 @@ createTextDiv(800, 700, 'GLAD YOU FOUND THIS');
 
 // STARS
 const stars = [];
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 100; i++) {
     const star = document.createElement('div');
     star.classList.add('star');
     star.style.position = 'absolute';
-    star.style.width = '80px';
-    star.style.height = '80px';
-    star.style.backgroundColor = '#14ff65';
+    star.style.width = '30px';
+    star.style.height = '30px';
+    star.style.backgroundColor = '#000';
     star.style.borderRadius = '50%';
     star.style.left = `${Math.random() * viewportWidth}px`;
     star.style.top = `${Math.random() * viewportHeight}px`;

@@ -37,3 +37,8 @@ body {
 #viewport{
     background-color: transparent;
 }
+
+
+a{
+    font-size: 50px;
+}

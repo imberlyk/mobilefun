@@ -2,6 +2,7 @@ body {
     margin: 0;
     overflow: hidden; /* Prevent scrollbars */
     position: relative;
+    background-image: url("tap.gif");
     transform-origin: top left;
 }
 

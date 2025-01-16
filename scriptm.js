@@ -51,7 +51,7 @@ const createTextDiv = (x, y, text) => {
     div.style.left = `${x}px`;
     div.style.top = `${y}px`;
     div.style.fontSize = '100px';
-    div.style.color = '#333';
+    div.style.color = '#001eff';
     div.style.backgroundColor = '#fff';
     div.style.padding = '5px';
     div.style.borderRadius = '5px';
@@ -72,7 +72,7 @@ for (let i = 0; i < 100; i++) {
     star.style.position = 'absolute';
     star.style.width = '30px';
     star.style.height = '30px';
-    star.style.backgroundColor = '#000';
+    star.style.backgroundColor = '#001eff';
     star.style.borderRadius = '50%';
     star.style.left = `${Math.random() * viewportWidth}px`;
     star.style.top = `${Math.random() * viewportHeight}px`;

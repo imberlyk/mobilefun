@@ -79,7 +79,7 @@ for (let i = 0; i < 50; i++) {
     stars.push(star);
 }
 
-// Handle device orientation
+// ORIENTATINNNOOON
 let scrollX = 0;
 let scrollY = 0;
 
@@ -138,7 +138,7 @@ window.addEventListener('resize', () => {
     Render.setPixelRatio(render, window.devicePixelRatio);
 });
 
-// Ensure this is only active on mobile devices
+// MOBILEE ONLYYYY
 if (!('ontouchstart' in window || navigator.maxTouchPoints)) {
     alert('MOBILE ONLY HIHIHIHI');
 }

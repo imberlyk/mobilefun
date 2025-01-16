@@ -3,6 +3,8 @@ window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequest
 
 const canvas = document.getElementById('canvas');
 const heat = simpleheat(canvas).data([]).max(18);
+heat.radius(30, 15); 
+
 let frame;
 
 function resizeCanvas() {
@@ -55,6 +57,3 @@ canvas.addEventListener('touchstart', (e) => {
     const { x, y } = getCoordinates(e);
     addHeatPoint(x, y);
 });
-
-canvas.addEventListener('touchstart', (e) => console.log('Touchstart detected', e));
-canvas.addEventListener('touchmove', (e) => console.log('Touchmove detected', e));

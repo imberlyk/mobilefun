@@ -23,10 +23,13 @@ Render.run(render);
 const runner = Runner.create();
 Runner.run(runner, engine);
 
-// Set the viewport to match the full body size
-const viewportWidth = document.body.scrollWidth;
-const viewportHeight = document.body.scrollHeight;
+// Set the viewport to 500vw and 500vh
+const viewportWidth = window.innerWidth * 5;
+const viewportHeight = window.innerHeight * 5;
 const boundaryThickness = 50;
+
+document.body.style.width = `${viewportWidth}px`;
+document.body.style.height = `${viewportHeight}px`;
 
 // Add boundaries to keep objects inside the viewport
 const boundaries = [

@@ -3,7 +3,7 @@ body {
     padding:0;
     overflow: hidden; 
     position: relative;
-    background-image: url("tap.gif");
+    background-color: white;
     background-repeat: repeat-y;
 
     transform-origin: top left;
@@ -18,12 +18,12 @@ body {
     padding: 20px 40px;
     font-size: 18px;
     font-family: fantasy;
-    color: #ffffff;
-    background-color: #000000;
+    color: #001eff;
+    background-color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 13, 255, 0.2);
 }
 
 

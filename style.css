@@ -34,10 +34,13 @@ a{
 .content {
     padding: 20px;
     color: rgb(0, 34, 255);
+    width:80%;
     height: 100vh;
     overflow-y: scroll;
     scrollbar-color: red orange;
     scrollbar-width: thin;
+    position: absolute;
+    z-index: 6;
 }
 
 h1 {

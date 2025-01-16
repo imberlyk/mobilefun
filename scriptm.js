@@ -13,7 +13,7 @@ const render = Render.create({
     options: {
         width: window.innerWidth,
         height: window.innerHeight,
-        background: '#f0f0f0',
+        background: '#fff',
         wireframes: false,
     },
 });

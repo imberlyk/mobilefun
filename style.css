@@ -40,7 +40,7 @@ a{
     scrollbar-color: red orange;
     scrollbar-width: thin;
     position: absolute;
-    z-index: 6;
+    z-index: 2;
 }
 
 h1 {

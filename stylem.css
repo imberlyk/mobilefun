@@ -5,7 +5,7 @@ body {
     background-image: url("tap.gif");
 
     transform-origin: top left;
-    background-size: 100% 100%;
+ 
 }
 
 #motion-permission {

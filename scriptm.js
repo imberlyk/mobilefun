@@ -24,8 +24,8 @@ const runner = Runner.create();
 Runner.run(runner, engine);
 
 // VIEWPORT SIZZZEEEEEEEE
-const viewportWidth = window.innerWidth * 0;
-const viewportHeight = window.innerHeight * 0;
+const viewportWidth = window.innerWidth * 8;
+const viewportHeight = window.innerHeight * 5;
 const boundaryThickness = 50;
 
 document.body.style.width = `${viewportWidth}px`;

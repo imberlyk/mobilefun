@@ -50,20 +50,22 @@ let scrollX = 0;
 let scrollY = 0;
 
 window.addEventListener('deviceorientation', (event) => {
-    const tiltX = event.beta; // Front-to-back tilt
-    const tiltY = event.gamma; // Left-to-right tilt
+    if (event.beta !== null && event.gamma !== null) {
+        const tiltX = Math.max(-90, Math.min(90, event.beta)); // Front-to-back tilt
+        const tiltY = Math.max(-90, Math.min(90, event.gamma)); // Left-to-right tilt
 
-    // Map tilt to scroll speed
-    const scrollSpeed = 10;
-    scrollX += (tiltY / 90) * scrollSpeed;
-    scrollY += (tiltX / 90) * scrollSpeed;
+        // Map tilt to scroll speed
+        const scrollSpeed = 5;
+        scrollX += (tiltY / 90) * scrollSpeed;
+        scrollY += (tiltX / 90) * scrollSpeed;
 
-    // Clamp scroll position within viewport boundaries
-    scrollX = Math.max(0, Math.min(viewportWidth - window.innerWidth, scrollX));
-    scrollY = Math.max(0, Math.min(viewportHeight - window.innerHeight, scrollY));
+        // Clamp scroll position within viewport boundaries
+        scrollX = Math.max(0, Math.min(viewportWidth - window.innerWidth, scrollX));
+        scrollY = Math.max(0, Math.min(viewportHeight - window.innerHeight, scrollY));
 
-    // Apply transform to simulate scrolling
-    render.canvas.style.transform = `translate(${-scrollX}px, ${-scrollY}px)`;
+        // Apply transform to simulate scrolling
+        render.canvas.style.transform = `translate(${-scrollX}px, ${-scrollY}px)`;
+    }
 });
 
 // Resize handler to update renderer size
@@ -72,3 +74,8 @@ window.addEventListener('resize', () => {
     render.options.height = window.innerHeight;
     Render.setPixelRatio(render, window.devicePixelRatio);
 });
+
+// Ensure this is only active on mobile devices
+if (!('ontouchstart' in window || navigator.maxTouchPoints)) {
+    alert('This demo is designed for mobile devices with motion sensors.');
+}

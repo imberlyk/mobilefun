@@ -13,7 +13,7 @@ body, html {
     height: 100vh;
     background: #f9f9f9;
     overflow: hidden;
-    touch-action: none; /* Prevents scrolling on touch devices */
+
 }
 
 canvas {

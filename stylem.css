@@ -28,6 +28,8 @@ body {
 
 
 .star {
+    position: relative;
+    z-index: 33;
     position: absolute;
     width: 20px;
     height: 20px;
@@ -37,9 +39,25 @@ body {
 
 #viewport{
     background-color: transparent;
+    position: relative;
+    z-index: 33;
 }
 
 
 a{
     font-size: 50px;
+}
+
+h1{
+
+    color: #001eff;
+    font-size: 30px;
+
+    scroll-behavior: auto;
+}
+
+.top{
+    position: fixed;
+    z-index: 600;
+    width: 100vw;
 }

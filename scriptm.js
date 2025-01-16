@@ -19,19 +19,19 @@ const render = Render.create({
 });
 Render.run(render);
 
-// Create a runner
+
 const runner = Runner.create();
 Runner.run(runner, engine);
 
-// Set the viewport to 500vw and 500vh
-const viewportWidth = window.innerWidth * 5;
+// VIEWPORT SIZZZEEEEEEEE
+const viewportWidth = window.innerWidth * 8;
 const viewportHeight = window.innerHeight * 5;
 const boundaryThickness = 50;
 
 document.body.style.width = `${viewportWidth}px`;
 document.body.style.height = `${viewportHeight}px`;
 
-// Add boundaries to keep objects inside the viewport
+// BOUNDARIES
 const boundaries = [
     Bodies.rectangle(viewportWidth / 2, -boundaryThickness / 2, viewportWidth, boundaryThickness, { isStatic: true }),
     Bodies.rectangle(viewportWidth / 2, viewportHeight + boundaryThickness / 2, viewportWidth, boundaryThickness, { isStatic: true }),
@@ -40,22 +40,17 @@ const boundaries = [
 ];
 Composite.add(world, boundaries);
 
-// Add pointers at various locations
-const pointers = [
-    Bodies.circle(500, 500, 20, { isStatic: true, render: { fillStyle: 'red' } }),
-    Bodies.circle(2500, 1500, 20, { isStatic: true, render: { fillStyle: 'blue' } }),
-    Bodies.circle(4500, 2500, 20, { isStatic: true, render: { fillStyle: 'green' } }),
-];
-Composite.add(world, pointers);
 
-// Add divs with text all over the viewport
+
+
+// TEXT DIV
 const createTextDiv = (x, y, text) => {
     const div = document.createElement('div');
     div.textContent = text;
     div.style.position = 'absolute';
     div.style.left = `${x}px`;
     div.style.top = `${y}px`;
-    div.style.fontSize = '24px';
+    div.style.fontSize = '100px';
     div.style.color = '#333';
     div.style.backgroundColor = '#fff';
     div.style.padding = '5px';
@@ -64,18 +59,18 @@ const createTextDiv = (x, y, text) => {
     document.body.appendChild(div);
 };
 
-createTextDiv(300, 400, 'Welcome to the viewport!');
-createTextDiv(2000, 1200, 'Keep scrolling...');
-createTextDiv(4000, 2500, 'Almost there!');
+createTextDiv(300, 400, 'WOW');
+createTextDiv(2000, 1200, 'THIS MIGHT BE ANNOYING');
+createTextDiv(4000, 2500, 'COOOLLL');
 
-// Add stars that move with the tilt
+// STARS
 const stars = [];
 for (let i = 0; i < 50; i++) {
     const star = document.createElement('div');
     star.classList.add('star');
     star.style.position = 'absolute';
-    star.style.width = '5px';
-    star.style.height = '5px';
+    star.style.width = '20px';
+    star.style.height = '20px';
     star.style.backgroundColor = '#ff0';
     star.style.borderRadius = '50%';
     star.style.left = `${Math.random() * viewportWidth}px`;

@@ -62,7 +62,7 @@ const createTextDiv = (x, y, text) => {
 createTextDiv(300, 400, 'WOW');
 createTextDiv(2000, 1200, 'THIS MIGHT BE ANNOYING');
 createTextDiv(800, 700, 'GLAD YOU FOUND THIS');
-createTextDiv(1200, 700, 'AOAOAOAO');
+createTextDiv(100, 3000, 'AOAOAOAO');
 
 // STARS
 const stars = [];

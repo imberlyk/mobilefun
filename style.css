@@ -6,7 +6,7 @@ body {
 
 
 
-a{
+.next{
     font-family: "Rubik Puddles", serif;
     color:rgb(0, 34, 255);
     transition-property: letter-spacing;
@@ -25,14 +25,14 @@ a{
 
 }
 
-a:hover{
+.next:hover{
     font-family: "Rubik Puddles", serif;
     color:rgb(255, 0, 238);
     letter-spacing: 10px;
     
 }
 
-a:active{
+.next:active{
     font-family: "Rubik Puddles", serif;
     color:rgb(255, 0, 238);
     letter-spacing: 4px;
@@ -75,7 +75,8 @@ a:active{
 p{
     font-family: "instrument serif", serif;
     font-style: normal;
-    font-size: 40px;
+    font-size: 35px;
+    line-height: 45px;
 }
 
 header{
@@ -118,4 +119,10 @@ span{
     font-size: 30px;
     transform:skewY(20deg);
 
+}
+
+.foot{
+    font-family: monospace;
+    font-size: 10px;
+    transform: translateY(10px);
 }

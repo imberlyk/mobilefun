@@ -57,12 +57,14 @@ body {
     width: 100vw;
     height: 650vh;
     z-index: 5;
+    touch-action: auto;
+    pointer-events: visible;
     
    
 }
 
 .content {
-    padding: 50px;
+    padding: 20px;
     color: blue;
     width:80%;
     height: 250vh;
@@ -89,7 +91,7 @@ header{
     background: rgb(255,255,255);
     background: linear-gradient(0deg, rgba(255,255,255,0.4150035014005602) 0%, rgba(255,255,255,1) 74%);
     width: 100vw;
-    padding-top: 10px;
+    padding-top: 8px;
 }
 
 .headers{
@@ -101,12 +103,11 @@ header{
     font-size: 10px;
     mix-blend-mode: multiply
 }
-
 #rotate{
-    height: 4vh;
-    width: auto;
-
+    padding-top:5px
 }
+
+
 
 span{
     font-family: "Rubik Puddles", serif;

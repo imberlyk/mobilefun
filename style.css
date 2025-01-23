@@ -7,8 +7,36 @@ body {
 
 
 a{
+    font-family: "Rubik Puddles", serif;
+    color:rgb(0, 34, 255);
+    transition-property: letter-spacing;
+    letter-spacing: normal;
+    transition-duration: 3s;
+    transition-timing-function: ease;
+    font-size: 90px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+    padding-left: 20px;
+    position: relative;
+    z-index: 30;
+    text-decoration: none;
 
 }
+
+a:hover{
+    font-family: "Rubik Puddles", serif;
+    color:rgb(255, 0, 238);
+    letter-spacing: 10px;
+    
+}
+
+a:active{
+    font-family: "Rubik Puddles", serif;
+    color:rgb(255, 0, 238);
+    letter-spacing: 4px;
+    
+}
+
 
 .container {
     position: absolute;
@@ -34,7 +62,7 @@ a{
     padding: 20px;
     color: rgb(0, 34, 255);
     width:80%;
-    height: 200vh;
+    height: 250vh;
     
     scrollbar-color: red orange;
     scrollbar-width: thin;

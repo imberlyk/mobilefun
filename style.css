@@ -57,7 +57,8 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 5;
-    pointer-events:visiblePainted;
+    pointer-events:none;
+    touch-action: none; 
 }
 
 .content {
@@ -65,9 +66,6 @@ body {
     color: rgb(0, 34, 255);
     width:80%;
     height: 250vh;
-    
-    scrollbar-color: red orange;
-    scrollbar-width: thin;
     position: relative;
     z-index: 2;
 }

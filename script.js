@@ -1,6 +1,6 @@
 const canvas = document.getElementById('canvas');
 const heat = simpleheat(canvas).data([]).max(18);
-heat.radius(30, 15);
+heat.radius(40, 25);
 
 let frame;
 

@@ -57,8 +57,8 @@ body {
     width: 100vw;
     height: 650vh;
     z-index: 5;
-    pointer-events:auto;
-    touch-action: none; 
+    
+   
 }
 
 .content {
@@ -68,6 +68,8 @@ body {
     height: 250vh;
     position: relative;
     z-index: 2;
+    pointer-events: none;
+    touch-action: none;
 }
 
 p{
@@ -81,16 +83,13 @@ header{
     display: flex;
     z-index: 10;
     justify-content: space-between;
-    gap: 20px;
+    gap: 5px;
     color:blue;
     position: fixed;
     background: rgb(255,255,255);
     background: linear-gradient(0deg, rgba(255,255,255,0.4150035014005602) 0%, rgba(255,255,255,1) 74%);
     width: 100vw;
     padding-top: 10px;
-
-    font-size: 10px;
-    line-height: 20px;
 }
 
 .headers{

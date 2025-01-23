@@ -13,13 +13,15 @@ a{
     letter-spacing: normal;
     transition-duration: 3s;
     transition-timing-function: ease;
-    font-size: 90px;
+    font-size: 10vw;
     margin-bottom: 30px;
     margin-left: 50px;
     padding-left: 20px;
-    position: relative;
+    position: absolute;
     z-index: 30;
     text-decoration: none;
+    top: 660vh;
+    bottom: 5px;
 
 }
 

@@ -115,6 +115,7 @@ span{
 
 .bracket{
     font-family: "instrument serif", serif;
-    font-size: 10px;
+    font-size: 30px;
+    transform:skewY(20deg);
 
 }

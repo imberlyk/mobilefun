@@ -4,6 +4,8 @@ body {
 
 }
 
+
+
 a{
     position: absolute;
     z-index: 777;
@@ -36,11 +38,15 @@ a{
     color: rgb(0, 34, 255);
     width:80%;
     height: 100vh;
-    overflow-y: scroll;
+    
     scrollbar-color: red orange;
     scrollbar-width: thin;
-    position: absolute;
+    position: relative;
     z-index: 2;
 }
 
-
+p{
+    font-family: "instrument serif", serif;
+    font-style: normal;
+    font-size: 40px;
+}

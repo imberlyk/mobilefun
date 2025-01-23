@@ -57,8 +57,7 @@ body {
     width: 100vw;
     height: 650vh;
     z-index: 1;
-    touch-action: auto;
-    pointer-events: visible;
+ 
     
    
 }
@@ -70,8 +69,7 @@ body {
     height: 250vh;
     position: relative;
     z-index: 2;
-    pointer-events: none;
-    touch-action: none;
+ 
 }
 
 p{

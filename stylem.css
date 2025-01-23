@@ -12,6 +12,7 @@ body {
 
 #motion-permission {
     position: fixed;
+    font-family: "Rubik Puddles", serif;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -41,6 +42,7 @@ body {
     background-color: transparent;
     position: relative;
     z-index: 33;
+    border: none;
 }
 
 
@@ -51,8 +53,9 @@ a{
 h1{
 
     color: #001eff;
-    font-size: 30px;
-
+    font-size: 50px;
+    padding-left:10px ;
+    font-family: "Rubik Puddles", serif;
     scroll-behavior: auto;
 }
 

@@ -41,7 +41,7 @@ function addHeatPoint(x, y) {
 }
 
 canvas.addEventListener('mousemove', (e) => {
-    if (!canvas.classList.contains('active')) return;
+   
     const { x, y } = getCoordinates(e);
     addHeatPoint(x, y);
 });
@@ -53,7 +53,7 @@ canvas.addEventListener('touchmove', (e) => {
     addHeatPoint(x, y);
 });
 
-// To toggle interaction dynamically
+
 canvas.addEventListener('mousedown', () => canvas.classList.add('active'));
 canvas.addEventListener('mouseup', () => canvas.classList.remove('active'));
 canvas.addEventListener('touchstart', () => canvas.classList.add('active'));

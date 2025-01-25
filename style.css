@@ -51,11 +51,12 @@ body {
 }
 
 #canvas {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     width: 100vw;
     height: 650vh;
+    touch-action: pan-down;
     z-index: 1;
    }
 

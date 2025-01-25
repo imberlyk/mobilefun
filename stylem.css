@@ -3,7 +3,7 @@ body {
     padding: 0;
     overflow: hidden;
     position: relative;
-    background-color: white;
+    background-color: rgb(206, 206, 206);
     transform-origin: top left;
 }
 

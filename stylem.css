@@ -41,10 +41,12 @@ a {
 
 h1 {
     color: #001eff;
-    font-size: 50px;
+    font-size: 25px;
     padding-left: 10px;
     font-family: "Rubik Puddles", serif;
-    scroll-behavior: auto;
+    position: fixed;
+    z-index: 777;
+
 }
 
 .top {

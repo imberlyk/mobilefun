@@ -1,5 +1,4 @@
-
-const { Engine, Render, Runner, Bodies, Composite, Events } = Matter;
+const { Engine, Render, Runner, Bodies, Composite } = Matter;
 
 // ENGINE
 const engine = Engine.create();
@@ -19,17 +18,18 @@ const render = Render.create({
 });
 Render.run(render);
 
-
 const runner = Runner.create();
 Runner.run(runner, engine);
 
-// VIEWPORT SIZZZEEEEEEEE
+// VIEWPORT SIZE
 const viewportWidth = window.innerWidth * 8;
 const viewportHeight = window.innerHeight * 5;
 const boundaryThickness = 50;
 
-document.body.style.width = `${viewportWidth}px`;
-document.body.style.height = `${viewportHeight}px`;
+//
+const scrollableContent = document.getElementById('scrollable-content');
+scrollableContent.style.width = `${viewportWidth}px`;
+scrollableContent.style.height = `${viewportHeight}px`;
 
 // BOUNDARIES
 const boundaries = [
@@ -40,31 +40,24 @@ const boundaries = [
 ];
 Composite.add(world, boundaries);
 
-
-
-
-// TEXT DIV
-const createTextDiv = (x, y, text) => {
+// FUNCTION TO CREATE TEXT DIVS
+const createTextDiv = (x, y, text, className) => {
     const div = document.createElement('div');
     div.textContent = text;
+    div.className = className;
     div.style.position = 'absolute';
     div.style.left = `${x}px`;
     div.style.top = `${y}px`;
-    div.style.fontSize = '100px';
-    div.style.color = '#001eff';
-    div.style.backgroundColor = '#fff';
-    div.style.padding = '5px';
-    div.style.borderRadius = '5px';
-    div.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
-    document.body.appendChild(div);
+    scrollableContent.appendChild(div);
 };
 
-createTextDiv(300, 400, 'WOW');
-createTextDiv(2000, 1200, 'THIS MIGHT BE ANNOYING');
-createTextDiv(800, 700, 'GLAD YOU FOUND THIS');
-createTextDiv(100, 3000, 'AOAOAOAO');
+// ADD TEXT DIVS
+createTextDiv(300, 400, 'WOW', 'text-box');
+createTextDiv(2000, 1200, 'THIS MIGHT BE ANNOYING', 'text-box');
+createTextDiv(800, 700, 'GLAD YOU FOUND THIS', 'text-box');
+createTextDiv(100, 3000, 'AOAOAOAO', 'text-box');
 
-// STARS
+// CREATE STARS
 const stars = [];
 for (let i = 0; i < 100; i++) {
     const star = document.createElement('div');
@@ -76,15 +69,14 @@ for (let i = 0; i < 100; i++) {
     star.style.borderRadius = '50%';
     star.style.left = `${Math.random() * viewportWidth}px`;
     star.style.top = `${Math.random() * viewportHeight}px`;
-    document.body.appendChild(star);
+    scrollableContent.appendChild(star);
     stars.push(star);
 }
 
-// ORIENTATINNNOOON
+// DEVICE ORIENTATION SCROLLING
 let scrollX = 0;
 let scrollY = 0;
 
-// IPHONE
 if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
     const requestPermissionButton = document.createElement('button');
     requestPermissionButton.innerText = 'Enable Motion';
@@ -110,36 +102,29 @@ if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.request
 function handleDeviceOrientation(event) {
     if (event.beta !== null && event.gamma !== null) {
         const tiltX = Math.max(-90, Math.min(90, event.beta));
-        const tiltY = Math.max(-90, Math.min(90, event.gamma)); 
+        const tiltY = Math.max(-90, Math.min(90, event.gamma));
 
         const scrollSpeed = 10;
         scrollX += (tiltY / 45) * scrollSpeed;
         scrollY += (tiltX / 45) * scrollSpeed;
 
-       
+    
         scrollX = Math.max(0, Math.min(viewportWidth - window.innerWidth, scrollX));
         scrollY = Math.max(0, Math.min(viewportHeight - window.innerHeight, scrollY));
 
-        document.body.style.transform = `translate(${-scrollX}px, ${-scrollY}px)`;
-
-        // STAAAAAAAARRRRRRRRRRRSSSSSSS
-        stars.forEach(star => {
-            const starX = parseFloat(star.style.left) + (tiltY / 45) * 2;
-            const starY = parseFloat(star.style.top) + (tiltX / 45) * 2;
-            star.style.left = `${Math.max(0, Math.min(viewportWidth, starX))}px`;
-            star.style.top = `${Math.max(0, Math.min(viewportHeight, starY))}px`;
-        });
+     
+        scrollableContent.style.transform = `translate(${-scrollX}px, ${-scrollY}px)`;
     }
 }
 
-// VIEWPORT GRÖßE
+// UPDATE VIEWPORT SIZE ON RESIZE
 window.addEventListener('resize', () => {
     render.options.width = window.innerWidth;
     render.options.height = window.innerHeight;
     Render.setPixelRatio(render, window.devicePixelRatio);
 });
 
-// MOBILEE ONLYYYY
+// ALERT FOR NON-MOBILE USERS
 if (!('ontouchstart' in window || navigator.maxTouchPoints)) {
-    alert('MOBILE ONLY HIHIHIHI');
+    alert('This experience is designed for mobile devices.');
 }

@@ -66,6 +66,7 @@ body {
     width:80%;
     height: 250vh;
     position: relative;
+    touch-action: pan-down;
     z-index: 2;
    
  

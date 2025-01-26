@@ -60,12 +60,12 @@ body {
     width: 100vw;
     height: 650vh;
     touch-action: pan-down;
-    z-index: 1;
+    z-index: 5;
    }
 
 .content {
     padding: 25px;
-    padding-top:40px;
+    padding-top:40vh;
     color: blue;
     width:80%;
     height: 250vh;
@@ -128,4 +128,17 @@ span{
     font-family: monospace;
     font-size: 10px;
     transform: translateY(10px);
+}
+
+
+.intro{
+    font-family: "Rubik Puddles", serif;
+    font-size: 15vw;
+    transform: scaleY(6.5);
+    z-index: 2;
+    padding: 4cqw;
+    padding-top: 80px;
+    color: blue;
+    position: relative;
+    mix-blend-mode: exclusion;
 }

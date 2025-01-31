@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    // Create Matter.js physics engine
     const engine = Engine.create();
     const world = engine.world;
     world.gravity.y = 0;
@@ -28,41 +29,63 @@ document.addEventListener("DOMContentLoaded", function () {
     const runner = Runner.create();
     Runner.run(runner, engine);
 
-    // Create an invisible physics body to represent the content's scroll
-    const contentHeight = content.scrollHeight;
+    // Adjust content height dynamically
+    const viewportWidth = window.innerWidth * 8;
+    const viewportHeight = window.innerHeight * 5;
+    content.style.width = `${viewportWidth}px`;
+    content.style.height = `${viewportHeight}px`;
+
+    // Create physics boundaries (so content does not move out of bounds)
+    const boundaries = [
+        Bodies.rectangle(viewportWidth / 2, -50, viewportWidth, 50, { isStatic: true }),
+        Bodies.rectangle(viewportWidth / 2, viewportHeight + 50, viewportWidth, 50, { isStatic: true }),
+        Bodies.rectangle(-50, viewportHeight / 2, 50, viewportHeight, { isStatic: true }),
+        Bodies.rectangle(viewportWidth + 50, viewportHeight / 2, 50, viewportHeight, { isStatic: true }),
+    ];
+    Composite.add(world, boundaries);
+
+    // Invisible physics body that represents the scrolling content
     const bodyObject = Bodies.rectangle(
-        window.innerWidth / 2, window.innerHeight / 2,
-        window.innerWidth, contentHeight,
+        viewportWidth / 2,
+        viewportHeight / 2,
+        viewportWidth,
+        viewportHeight,
         { isStatic: false, frictionAir: 0.1, restitution: 0, render: { visible: false } }
     );
 
-    const boundaries = [
-        Bodies.rectangle(window.innerWidth / 2, -50, window.innerWidth, 50, { isStatic: true }),
-        Bodies.rectangle(window.innerWidth / 2, contentHeight + 50, window.innerWidth, 50, { isStatic: true })
-    ];
+    Composite.add(world, bodyObject);
 
-    Composite.add(world, [bodyObject, ...boundaries]);
-
+    let targetScrollX = 0;
     let targetScrollY = 0;
+    let currentScrollX = 0;
     let currentScrollY = 0;
 
     function handleDeviceOrientation(event) {
-        if (event.beta === null) {
+        if (event.beta === null || event.gamma === null) {
             console.warn("🚨 No orientation data detected.");
             return;
         }
 
-        console.log("📡 Device Orientation Data:", event.beta);
+        console.log("📡 Device Orientation Data:", event.beta, event.gamma);
 
-        let tiltOffset = event.beta - 90; // Adjust for phone's natural resting position
-        let threshold = 5;
+        // Normalize tilt values
+        const tiltX = Math.max(-90, Math.min(90, event.beta));
+        const tiltY = Math.max(-90, Math.min(90, event.gamma));
 
-        if (Math.abs(tiltOffset) > threshold) {
-            let force = tiltOffset * 0.0003;
-            Body.applyForce(bodyObject, { x: bodyObject.position.x, y: bodyObject.position.y }, { x: 0, y: force });
-        } else {
-            Body.setVelocity(bodyObject, { x: 0, y: 0 });
-        }
+        // Apply force based on tilt
+        const scrollSpeed = 0.005; // Adjust scroll speed sensitivity
+        targetScrollX += (tiltY / 45) * scrollSpeed * viewportWidth;
+        targetScrollY += (tiltX / 45) * scrollSpeed * viewportHeight;
+
+        // Clamp scrolling within boundaries
+        targetScrollX = Math.max(0, Math.min(viewportWidth - window.innerWidth, targetScrollX));
+        targetScrollY = Math.max(0, Math.min(viewportHeight - window.innerHeight, targetScrollY));
+
+        // Apply force to physics body
+        Body.applyForce(bodyObject, { x: bodyObject.position.x, y: bodyObject.position.y }, {
+            x: (tiltY / 90) * 0.002,
+            y: (tiltX / 90) * 0.002
+        });
     }
 
     function requestMotionPermission() {
@@ -111,18 +134,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     requestMotionPermission();
 
-    Events.on(engine, "afterUpdate", function () {
-        targetScrollY = bodyObject.position.y - window.innerHeight / 2;
-    });
-
     function animateScroll() {
-        if (content) {
-            currentScrollY += (targetScrollY - currentScrollY) * 0.1; 
-            content.scrollTop = currentScrollY; // Scroll inside .content
-        }
+        currentScrollX += (targetScrollX - currentScrollX) * 0.1;
+        currentScrollY += (targetScrollY - currentScrollY) * 0.1;
+        content.style.transform = `translate(${-currentScrollX}px, ${-currentScrollY}px)`;
+
         requestAnimationFrame(animateScroll);
     }
-
     animateScroll();
 
     // 🔥 HEATMAP FUNCTIONALITY

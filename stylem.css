@@ -3,7 +3,7 @@ body {
     padding: 0;
     overflow: hidden;
     position: relative;
-    background-color:#fcbcd9;;
+    background-color:#0000FF;
     transform-origin: top left;
 }
 
@@ -23,7 +23,7 @@ body {
     font-size: 18px;
     font-family: "instrument serif";
     color:#fcbcd9;
-    background-color: #ffffff;
+    background-color:#0000FF;
     border: none;
     border-radius: 5px;
     z-index: 999;
@@ -45,7 +45,7 @@ body {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #001eff;
+    background-color: #fcbcd9;
     border-radius: 50%;
     z-index: 9999; 
 }
@@ -53,7 +53,7 @@ body {
 
 
 h1 {
-    color:#fcbcd9;
+    color:#0000FF;
     font-size: 45px;
     padding-left: 10px;
     text-align: center;
@@ -68,7 +68,7 @@ h1 {
 
 /*Haalloooo*/
 a {
-    color:#fcbcd9;
+    color:#0000FF;
     font-size: 25px;
     padding-left: 10px;
     bottom: 5px;
@@ -104,7 +104,7 @@ a {
     height: auto;
     top: 250px; 
     z-index: 30;
-    box-shadow: 0 0 8px 8px #fcbcd9 inset;
+    box-shadow: 0 0 8px 8px #0000FF inset;
     left: 100px; 
 
 }
@@ -113,7 +113,7 @@ a {
     position: absolute;
     width: 200px; 
     height: auto;
-    box-shadow: 0 0 8px 8px #fcbcd9 inset;
+    box-shadow: 0 0 8px 8px #0000FF inset;
     top: 2000px; 
     left: 800px; 
 
@@ -125,7 +125,7 @@ a {
     height: auto;
     top: 400px; 
     left: 1200px; 
-    box-shadow: 0 0 8px 8px #fcbcd9 inset;
+    box-shadow: 0 0 8px 8px #0000FF inset;
     z-index: 32;
 
 }
@@ -137,7 +137,7 @@ a {
     height: auto;
     top: 400px; 
     left: 1200px; 
-    box-shadow: 0 0 8px 8px #fcbcd9 inset;
+    box-shadow: 0 0 8px 8px #0000FF inset;
 
     z-index: 33;
 }
@@ -149,7 +149,7 @@ a {
     height: auto;
     top: 800px; 
     left: 1200px; 
-    box-shadow: 0 0 8px 8px #fcbcd9 inset;
+    box-shadow: 0 0 8px 8px #0000FF inset;
 
     z-index: 29;
 }

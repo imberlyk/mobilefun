@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const engine = Engine.create();
     const world = engine.world;
 
-    // Render hidden canvas for physics simulation
+    // Render (Hidden canvas, physics only)
     const render = Render.create({
         element: document.body,
         engine: engine,
@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
         window.innerWidth, window.innerHeight * 5,
         {
             isStatic: false,
-            frictionAir: 0.15, // Slow reaction for smoother tilt control
-            restitution: 0.2,  // Reduce bounce effect
+            frictionAir: 0.2, // Increased for slower movement
+            restitution: 0,
             render: { visible: false }
         }
     );
@@ -41,22 +41,25 @@ document.addEventListener("DOMContentLoaded", function () {
     Matter.Events.on(engine, "afterUpdate", function () {
         window.scrollTo({
             top: bodyObject.position.y - window.innerHeight / 2,
-            behavior: "smooth"
+            behavior: "auto" // No smooth scroll to avoid unwanted inertia
         });
     });
 
-    // Device Tilt Controls for Scroll
+    // Device Tilt to Scroll
     if (window.DeviceOrientationEvent) {
         window.addEventListener("deviceorientation", function (event) {
-            let tilt = event.beta; // Forward/backward tilt (-90 to 90)
-            let threshold = 5; // Minimum tilt to trigger movement
+            let tilt = event.beta; // Forward/Backward tilt (-90 to 90)
+            let threshold = 10; // Only react to significant tilt changes
 
             if (Math.abs(tilt) > threshold) {
-                let force = tilt * 0.0003; // Adjusted force for smoother response
+                let force = tilt * 0.0005; // Adjusted for better control
                 Body.applyForce(bodyObject, { x: bodyObject.position.x, y: bodyObject.position.y }, {
-                    x: 0, 
+                    x: 0,
                     y: force
                 });
+            } else {
+                // Stop movement if tilt is below threshold
+                Body.setVelocity(bodyObject, { x: 0, y: 0 });
             }
         });
     }

@@ -17,7 +17,7 @@ body {
     transition-duration: 3s;
     transition-timing-function: ease;
     font-size: 10vw;
-    position: relative; 
+    position: absolute; 
     top: 500vh;
     padding: 25px;
     transform: translateX(-50%); 

@@ -131,6 +131,7 @@ span{
     transform-origin: top; /* Ensures it contracts from the top */
     z-index: 2;
     padding: 4cqw;
+    z-index: 8888;
     padding-top: 80px;
     color: blue;
     position: relative;

@@ -5,23 +5,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const heat = simpleheat(canvas).data([]).max(18);
     let frame;
 
-    // Setup intro stretch effect
-    intro.style.transformOrigin = "top"; 
-    intro.style.position = "fixed"; 
-    intro.style.width = "100%"; 
-    intro.style.top = "0"; 
+    // Set initial styles for intro
+    intro.style.transformOrigin = "top";
+    intro.style.position = "absolute"; 
+    intro.style.width = "100%";
+    intro.style.top = "0";
 
     function handleScroll() {
         let scrollTop = window.scrollY || document.documentElement.scrollTop;
+        let contentOffset = content.offsetTop; 
+        let distance = Math.max(0, contentOffset - scrollTop); 
         let scaleValue = Math.max(1, 6.5 - scrollTop / 150); 
+        let skewValue = Math.max(0, 20 - scrollTop / 20); 
 
-        intro.style.transform = `scaleY(${scaleValue})`;
 
-        if (scaleValue === 1) {
-            intro.style.position = "relative"; 
-            intro.style.top = "auto";
+        intro.style.transform = `scaleY(${scaleValue}) skewY(${skewValue}deg)`;
+
+     
+        if (scrollTop >= contentOffset - 100) {
+            intro.style.position = "relative";
         } else {
-            intro.style.position = "fixed"; 
+            intro.style.position = "absolute"; 
             intro.style.top = "0";
             intro.style.width = "100%";
         }
@@ -29,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Setup heatmap canvas effect
+    // HEAT MAP!!!
     heat.radius(40, 25);
 
     function resizeCanvas() {

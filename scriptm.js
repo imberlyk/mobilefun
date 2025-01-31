@@ -66,17 +66,29 @@ starsContainer.style.height = '100%';
 starsContainer.style.pointerEvents = 'none'; // Prevent interaction
 document.body.appendChild(starsContainer);
 
-// CREATE MOVING STARS
+// FUNCTION TO CREATE SVG STARS
+const createStarSVG = (size, color) => {
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("width", size);
+    svg.setAttribute("height", size);
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.style.position = "absolute";
+
+    const path = document.createElementNS(svgNS, "path");
+    path.setAttribute("d", "M12 2L15 9h7l-5.5 4.5 2 7.5-6-4-6 4 2-7.5L2 9h7z");
+    path.setAttribute("fill", color);
+
+    svg.appendChild(path);
+    return svg;
+};
+
+// CREATE MOVING SVG STARS
 const stars = [];
 for (let i = 0; i < 100; i++) {
-    const star = document.createElement('div');
-    star.classList.add('star');
-    star.style.position = 'absolute';
-    star.style.width = '10px'; // Smaller for better effect
-    star.style.height = '10px';
-    star.style.backgroundColor = '#001eff';
-    star.style.borderRadius = '50%';
-    star.style.zIndex = '666'
+    const size = Math.random() * 20 + 10; // Random size between 10px and 30px
+    const color = "#001eff"; // Can change dynamically if needed
+    const star = createStarSVG(size, color);
     
     // Initial position relative to viewport
     star.dataset.initialX = Math.random() * window.innerWidth; 
@@ -84,7 +96,7 @@ for (let i = 0; i < 100; i++) {
 
     star.style.left = `${star.dataset.initialX}px`;
     star.style.top = `${star.dataset.initialY}px`;
-    
+
     starsContainer.appendChild(star);
     stars.push(star);
 }

@@ -58,9 +58,9 @@ h1 {
 }
 
 /*Haalloooo*/
-h2 {
+a {
     color: #001eff;
-    font-size: 65px;
+    font-size: 25px;
     padding-left: 10px;
     bottom: 5px;
     font-family: "serial";

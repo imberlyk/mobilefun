@@ -51,7 +51,6 @@ body {
     width:100vw;
     padding-right: 30px;
     height: 650vh;
-    overflow-y: auto;
     position: relative;
     z-index: 2;
    

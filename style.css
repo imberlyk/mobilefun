@@ -63,12 +63,13 @@ header{
     width: 100vw;
     z-index: 77777;
     height: 150px;
+    text-decoration: none;
     padding-top: 0px;
 }
 
 .headers{
     height: 5vh;
-    padding-top: 2opx;
+    padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
     text-decoration: none;
@@ -77,6 +78,10 @@ header{
     color:blue;
 
 }
+
+
+.headers:visited { text-decoration: none; 
+    color: blue; }
 #rotate{
     padding-top:15px
 }

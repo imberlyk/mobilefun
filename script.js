@@ -1,25 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
     const intro = document.querySelector(".intro");
-    const introSpacer = document.querySelector(".intro-spacer");
     const content = document.querySelector(".content");
+    const canvas = document.getElementById("canvas");
 
     function handleScroll() {
         let scrollTop = window.scrollY || document.documentElement.scrollTop;
         let maxScale = 12.5; // Initial stretched scale
         let shrinkSpeed = 50; // Smaller number = faster shrink
-        let scaleValue = Math.max(0, maxScale - scrollTop / shrinkSpeed); // Faster shrink
+        let scaleValue = Math.max(0, maxScale - scrollTop / shrinkSpeed);
 
         // Apply scale effect
         intro.style.transform = `scaleY(${scaleValue})`;
 
         // Fade out when fully shrunk
-        if (scaleValue <= 1) {
-            intro.style.opacity = "0";
-        } else {
-            intro.style.opacity = "1";
-        }
+        intro.style.opacity = scaleValue <= 1 ? "0" : "1";
 
-        // Once fully shrunk, remove intro without shifting content
+        // Hide when almost invisible
         if (scaleValue <= 0.1) {
             intro.style.display = "none";
         }
@@ -27,66 +23,53 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("scroll", handleScroll);
 
+    // Matter.js Setup
+    const { Engine, Render, World, Bodies } = Matter;
 
+    const engine = Engine.create();
+    const world = engine.world;
 
-    // HEATMAP FUNCTIONALITY
-    if (canvas) {
-        const heat = simpleheat(canvas).data([]).max(18);
-        let frame;
-
-        heat.radius(40, 25);
-
-        function resizeCanvas() {
-            const dpr = window.devicePixelRatio || 1;
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
-            const ctx = canvas.getContext("2d");
-            ctx.scale(dpr, dpr);
-            heat.resize();
-            heat.draw();
+    const render = Render.create({
+        element: document.body,
+        canvas: canvas,
+        engine: engine,
+        options: {
+            width: window.innerWidth,
+            height: window.innerHeight * 2,
+            background: "transparent",
+            wireframes: false
         }
+    });
 
-        window.addEventListener("resize", resizeCanvas);
-        resizeCanvas();
-
-        function draw() {
-            heat.draw();
-            frame = null;
+    const textBody = Bodies.rectangle(window.innerWidth / 2, 100, 300, 80, {
+        restitution: 0.3, // Soft bounce
+        frictionAir: 0.05, // Slow movement
+        mass: 1,
+        render: {
+            fillStyle: "blue"
         }
+    });
 
-        function getCoordinates(e) {
-            const rect = canvas.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-            return {
-                x: (clientX - rect.left) * scaleX,
-                y: (clientY - rect.top) * scaleY,
-            };
-        }
+    World.add(world, [textBody]);
 
-        function addHeatPoint(x, y) {
-            heat.add([x, y, 1]);
-            frame = frame || window.requestAnimationFrame(draw);
-        }
+    Engine.run(engine);
+    Render.run(render);
 
-        canvas.addEventListener("mousemove", (e) => {
-            const { x, y } = getCoordinates(e);
-            addHeatPoint(x, y);
+    // Slow Y-axis movement
+    Matter.Events.on(engine, "afterUpdate", () => {
+        Matter.Body.setVelocity(textBody, { x: 0, y: textBody.velocity.y * 0.95 });
+    });
+
+    // Device Orientation to Scroll
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener("deviceorientation", function (event) {
+            let tilt = event.beta; // Forward/backward tilt (-90 to 90)
+
+            if (tilt > 10) {
+                window.scrollBy(0, tilt * 0.5);
+            } else if (tilt < -10) {
+                window.scrollBy(0, tilt * -0.5);
+            }
         });
-
-        canvas.addEventListener("touchmove", (e) => {
-            e.preventDefault();
-            if (!canvas.classList.contains("active")) return;
-            const { x, y } = getCoordinates(e);
-            addHeatPoint(x, y);
-        });
-
-        canvas.addEventListener("mousedown", () => canvas.classList.add("active"));
-        canvas.addEventListener("mouseup", () => canvas.classList.remove("active"));
-        canvas.addEventListener("touchstart", () => canvas.classList.add("active"));
-        canvas.addEventListener("touchend", () => canvas.classList.remove("active"));
     }
 });

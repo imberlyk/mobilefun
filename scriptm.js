@@ -3,7 +3,7 @@ const { Engine, Render, Runner, Bodies, Composite } = Matter;
 // ENGINE
 const engine = Engine.create();
 const world = engine.world;
-world.gravity.y = 0; 
+world.gravity.y = 0;
 
 // RENDER
 const render = Render.create({
@@ -26,7 +26,7 @@ const viewportWidth = window.innerWidth * 8;
 const viewportHeight = window.innerHeight * 5;
 const boundaryThickness = 50;
 
-//
+// SCROLLABLE CONTENT
 const scrollableContent = document.getElementById('scrollable-content');
 scrollableContent.style.width = `${viewportWidth}px`;
 scrollableContent.style.height = `${viewportHeight}px`;
@@ -40,7 +40,7 @@ const boundaries = [
 ];
 Composite.add(world, boundaries);
 
-// FUNCTION TO CREATE TEXT DIVS
+// TEXT ELEMENTS
 const createTextDiv = (x, y, text, className) => {
     const div = document.createElement('div');
     div.textContent = text;
@@ -51,13 +51,22 @@ const createTextDiv = (x, y, text, className) => {
     scrollableContent.appendChild(div);
 };
 
-// ADD TEXT DIVS
-createTextDiv(300, 400, 'Ahh, The Dress, a perfect analogy for delusion. In 2015, this image shook the internet, an optical illusion that crystallizes differently for each person. You might see a black and blue dress, or you might see a white and gold dress. Isnt that crazy ? Lol.', 'text-box');
-createTextDiv(2000, 1200, 'This is, imo, a form of delusion. While there’s no denying that people perceive different colors, there is still one objective truth, an undeniable fact, even if individual perception cant be dismissed. In this case, we moved from a collective delusion, uncertainty about the dresss true colors, to the realization that, even though I know the dress is black and blue, my brain simply refuses to see it as anything but white and gold.', 'text-box');
-createTextDiv(800, 700, 'The concept of delulu is undeniably intriguing. At times, all I want in life is to simply hihi and haha to exist in a space where seriousness takes a backseat. Delulu offers a kind of refuge, a soft, cushioned hideaway from the harshness of reality when it feels particularly unforgiving.', 'text-box');
+// ADD TEXT ELEMENTS
+createTextDiv(300, 400, 'Ahh, The Dress, a perfect analogy for delusion...', 'text-box');
+createTextDiv(2000, 1200, 'This is, imo, a form of delusion...', 'text-box');
+createTextDiv(800, 700, 'The concept of delulu is undeniably intriguing...', 'text-box');
 createTextDiv(100, 3000, 'AOAOAOAO', 'text-box');
 
-// CREATE STARS
+// CREATE STAR CONTAINER
+const starsContainer = document.createElement('div');
+starsContainer.id = 'stars-container';
+starsContainer.style.position = 'fixed';
+starsContainer.style.width = '100%';
+starsContainer.style.height = '100%';
+starsContainer.style.pointerEvents = 'none'; // Prevent interaction
+document.body.appendChild(starsContainer);
+
+// CREATE MOVING STARS
 const stars = [];
 for (let i = 0; i < 100; i++) {
     const star = document.createElement('div');
@@ -67,15 +76,17 @@ for (let i = 0; i < 100; i++) {
     star.style.height = '30px';
     star.style.backgroundColor = '#001eff';
     star.style.borderRadius = '50%';
-    star.style.left = `${Math.random() * viewportWidth}px`;
-    star.style.top = `${Math.random() * viewportHeight}px`;
-    scrollableContent.appendChild(star);
+    star.style.left = `${Math.random() * window.innerWidth}px`; 
+    star.style.top = `${Math.random() * window.innerHeight}px`; 
+    starsContainer.appendChild(star);
     stars.push(star);
 }
 
-// DEVICE ORIENTATION SCROLLING
-let scrollX = 0;
-let scrollY = 0;
+// DEVICE ORIENTATION SCROLLING WITH LERPING
+let targetScrollX = 0;
+let targetScrollY = 0;
+let currentScrollX = 0;
+let currentScrollY = 0;
 
 if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
     const requestPermissionButton = document.createElement('button');
@@ -104,18 +115,36 @@ function handleDeviceOrientation(event) {
         const tiltX = Math.max(-90, Math.min(90, event.beta));
         const tiltY = Math.max(-90, Math.min(90, event.gamma));
 
-        const scrollSpeed = 10;
-        scrollX += (tiltY / 45) * scrollSpeed;
-        scrollY += (tiltX / 45) * scrollSpeed;
+        const scrollSpeed = 5; // Reduced speed for smoother movement
+        targetScrollX += (tiltY / 45) * scrollSpeed;
+        targetScrollY += (tiltX / 45) * scrollSpeed;
 
-    
-        scrollX = Math.max(0, Math.min(viewportWidth - window.innerWidth, scrollX));
-        scrollY = Math.max(0, Math.min(viewportHeight - window.innerHeight, scrollY));
-
-     
-        scrollableContent.style.transform = `translate(${-scrollX}px, ${-scrollY}px)`;
+        targetScrollX = Math.max(0, Math.min(viewportWidth - window.innerWidth, targetScrollX));
+        targetScrollY = Math.max(0, Math.min(viewportHeight - window.innerHeight, targetScrollY));
     }
 }
+
+// ANIMATION LOOP FOR SMOOTH SCROLLING & STAR MOVEMENT
+function animate() {
+    // Apply lerping to smooth the motion
+    currentScrollX += (targetScrollX - currentScrollX) * 0.1;
+    currentScrollY += (targetScrollY - currentScrollY) * 0.1;
+
+    // Move content
+    scrollableContent.style.transform = `translate(${-currentScrollX}px, ${-currentScrollY}px)`;
+
+    // Move stars dynamically
+    stars.forEach((star, index) => {
+        const parallaxFactor = 0.02 + (index / 500); // Each star moves slightly differently
+        const starX = (window.innerWidth / 2 - currentScrollX) * parallaxFactor;
+        const starY = (window.innerHeight / 2 - currentScrollY) * parallaxFactor;
+
+        star.style.transform = `translate(${starX}px, ${starY}px)`;
+    });
+
+    requestAnimationFrame(animate);
+}
+animate();
 
 // UPDATE VIEWPORT SIZE ON RESIZE
 window.addEventListener('resize', () => {

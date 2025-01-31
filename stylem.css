@@ -3,7 +3,7 @@ body {
     padding: 0;
     overflow: hidden;
     position: relative;
-    background-color:#F08FBA;
+    background-color:#fcbcd9;
     transform-origin: top left;
 }
 
@@ -82,7 +82,7 @@ a {
 .text-box {
     font-size: 30px;
     color: #001eff;
-    background-color: #fff;
+    background-color:#fcbcd9;
     width: 290px;
     padding: 10px;
     border-radius: 5px;

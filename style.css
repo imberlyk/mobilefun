@@ -125,7 +125,7 @@ span{
     left: 0;
     width: 100%;
     height: 100vh;
-    transform: scaleY(12.5); /* Stretched initially */
+    transform: scaleY(12.5); 
     transform-origin: top;
     padding-left: 25px;
     z-index: 333;
@@ -139,7 +139,7 @@ span{
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 190px; /* Adjust height as needed */
+    height: 190px; 
     z-index: 99999;
     pointer-events: none; 
     background: linear-gradient(0deg, rgba(150,150,150,1) 0%, rgba(255,255,255,0) 100%);

@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const runner = Runner.create();
     Runner.run(runner, engine);
 
-    // Adjust content size 
+    // Adjust content size
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight * 7; // 700vh
 
@@ -100,42 +100,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function animateScroll() {
         currentScrollY += (targetScrollY - currentScrollY) * 0.1;
-        content.style.transform = `translateY(${-currentScrollY}px)`;
+        content.scrollTop = currentScrollY; 
         requestAnimationFrame(animateScroll);
     }
 
     animateScroll();
 
-    // 🔥 HEATMAP
+
     if (canvas) {
         const heat = simpleheat(canvas).data([]).max(18);
-        heat.radius(40, 25);
-    
+        heat.radius(30, 20);
+
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+
+            
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+
+            const ctx = canvas.getContext("2d");
+            ctx.scale(dpr, dpr);
+            heat.resize();
+            heat.draw();
+        }
+
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
         function getCoordinates(e) {
             const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    
-            // Scale the touch position relative to the canvas size
+
+           
             const scaleX = canvas.width / rect.width;
             const scaleY = canvas.height / rect.height;
-    
+
             return {
                 x: (clientX - rect.left) * scaleX,
                 y: (clientY - rect.top) * scaleY
             };
         }
-    
+
         function addHeatPoint(x, y) {
             heat.add([x, y, 1]);
             heat.draw();
         }
-    
+
         canvas.addEventListener("mousemove", (e) => {
             const { x, y } = getCoordinates(e);
             addHeatPoint(x, y);
         });
-    
+
         canvas.addEventListener("touchmove", (e) => {
             e.preventDefault();
             const { x, y } = getCoordinates(e);

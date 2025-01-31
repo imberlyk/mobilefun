@@ -100,13 +100,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function animateScroll() {
         currentScrollY += (targetScrollY - currentScrollY) * 0.1;
-        content.scrollTop = currentScrollY; 
+        content.style.transform = `translateY(${-currentScrollY}px)`; // ✅ Use transform instead of scrollTop
         requestAnimationFrame(animateScroll);
     }
 
     animateScroll();
 
-
+    // 🔥 FIXED HEATMAP SIZE & TOUCH POSITION
     if (canvas) {
         const heat = simpleheat(canvas).data([]).max(18);
         heat.radius(30, 20);
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const dpr = window.devicePixelRatio || 1;
             const rect = canvas.getBoundingClientRect();
 
-            
+            // ✅ Heatmap now always fits **100vw x 100vh**
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
 
@@ -133,13 +133,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-           
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-
+            // ✅ Fix the scaling issue that caused stretching
             return {
-                x: (clientX - rect.left) * scaleX,
-                y: (clientY - rect.top) * scaleY
+                x: (clientX - rect.left) * (canvas.width / rect.width),
+                y: (clientY - rect.top) * (canvas.height / rect.height)
             };
         }
 

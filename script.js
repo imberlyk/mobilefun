@@ -110,16 +110,36 @@ document.addEventListener("DOMContentLoaded", function () {
     if (canvas) {
         const heat = simpleheat(canvas).data([]).max(18);
         heat.radius(40, 25);
-
-        canvas.addEventListener("mousemove", (e) => {
-            heat.add([e.clientX, e.clientY, 1]);
+    
+        function getCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+            // Scale the touch position relative to the canvas size
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+    
+            return {
+                x: (clientX - rect.left) * scaleX,
+                y: (clientY - rect.top) * scaleY
+            };
+        }
+    
+        function addHeatPoint(x, y) {
+            heat.add([x, y, 1]);
             heat.draw();
+        }
+    
+        canvas.addEventListener("mousemove", (e) => {
+            const { x, y } = getCoordinates(e);
+            addHeatPoint(x, y);
         });
-
+    
         canvas.addEventListener("touchmove", (e) => {
             e.preventDefault();
-            heat.add([e.touches[0].clientX, e.touches[0].clientY, 1]);
-            heat.draw();
+            const { x, y } = getCoordinates(e);
+            addHeatPoint(x, y);
         });
     }
 });

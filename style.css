@@ -124,15 +124,16 @@ span{
     transform: translateY(10px);
 }
 
-
-.intro{
+.intro {
     font-family: "Rubik Puddles", serif;
     font-size: 15vw;
     transform: scaleY(6.5);
+    transform-origin: top; /* Ensures it contracts from the top */
     z-index: 2;
     padding: 4cqw;
     padding-top: 80px;
     color: blue;
     position: relative;
     mix-blend-mode: exclusion;
+    transition: transform 0.3s ease-out;
 }

@@ -59,6 +59,7 @@ h1 {
     text-align: center;
     font-family: "Rubik Puddles", serif;
     position: fixed;
+    mix-blend-mode: difference;
     font-weight: normal;
     margin:0;
     top:0;
@@ -68,7 +69,7 @@ h1 {
 
 /*Haalloooo*/
 a {
-    color:#0000FF;
+    color:#2929fc;
     font-size: 25px;
     padding-left: 10px;
     bottom: 5px;

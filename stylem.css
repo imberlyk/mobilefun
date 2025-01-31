@@ -3,7 +3,7 @@ body {
     padding: 0;
     overflow: hidden;
     position: relative;
-    background-color:#0000FF;
+    background-color:#fcbcd9;
     transform-origin: top left;
 }
 
@@ -45,7 +45,6 @@ body {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #fcbcd9;
     border-radius: 50%;
     z-index: 9999; 
 }

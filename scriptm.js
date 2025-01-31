@@ -63,7 +63,7 @@ starsContainer.id = 'stars-container';
 starsContainer.style.position = 'fixed';
 starsContainer.style.width = '100%';
 starsContainer.style.height = '100%';
-starsContainer.style.pointerEvents = 'none'; // Prevent interaction
+starsContainer.style.pointerEvents = 'none'; 
 document.body.appendChild(starsContainer);
 
 // FUNCTION TO CREATE SVG STARS
@@ -87,10 +87,10 @@ const createStarSVG = (size, color) => {
 const stars = [];
 for (let i = 0; i < 100; i++) {
     const size = Math.random() * 15 + 10; 
-    const color = "#fcbcd9";
+    const color = "#fcbcd9"; //COLOR IS HERE!!!
     const star = createStarSVG(size, color);
     
-    // Initial position relative to viewport
+
     star.dataset.initialX = Math.random() * window.innerWidth; 
     star.dataset.initialY = Math.random() * window.innerHeight;
 
@@ -134,7 +134,7 @@ function handleDeviceOrientation(event) {
         const tiltX = Math.max(-90, Math.min(90, event.beta));
         const tiltY = Math.max(-90, Math.min(90, event.gamma));
 
-        const scrollSpeed = 3; // 
+        const scrollSpeed = 3; 
         targetScrollX += (tiltY / 45) * scrollSpeed;
         targetScrollY += (tiltX / 45) * scrollSpeed;
 
@@ -145,15 +145,14 @@ function handleDeviceOrientation(event) {
 
 // ANIMATION LOOP FOR SMOOTH SCROLLING & STAR MOVEMENT
 function animate() {
-    
+
     currentScrollX += (targetScrollX - currentScrollX) * 0.1;
     currentScrollY += (targetScrollY - currentScrollY) * 0.1;
-
 
     scrollableContent.style.transform = `translate(${-currentScrollX}px, ${-currentScrollY}px)`;
 
     stars.forEach((star, index) => {
-        const parallaxFactor = (index + 1) / 200; // Adjust parallax speed per star
+        const parallaxFactor = (index + 1) / 200; 
         const offsetX = Math.sin(Date.now() * 0.0005 + index) * 5; 
         const starX = parseFloat(star.dataset.initialX) + (targetScrollX * parallaxFactor) + offsetX;
         const starY = parseFloat(star.dataset.initialY) + (targetScrollY * parallaxFactor);

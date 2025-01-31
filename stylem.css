@@ -22,7 +22,7 @@ body {
     padding: 20px 40px;
     font-size: 18px;
     font-family: "instrument serif";
-    color: #001eff;
+    color:#fcbcd9;
     background-color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -47,7 +47,7 @@ a {
 }
 
 h1 {
-    color: #001eff;
+    color:#fcbcd9;
     font-size: 45px;
     padding-left: 10px;
     text-align: center;
@@ -60,7 +60,7 @@ h1 {
 
 /*Haalloooo*/
 a {
-    color: #001eff;
+    color:#fcbcd9;
     font-size: 25px;
     padding-left: 10px;
     bottom: 5px;
@@ -81,8 +81,8 @@ a {
 
 .text-box {
     font-size: 30px;
-    color: #001eff;
-    background-color:#fcbcd9;
+    color:#fcbcd9;
+    background-color:  #001eff;
     width: 290px;
     padding: 10px;
     border-radius: 5px;

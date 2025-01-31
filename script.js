@@ -29,13 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const runner = Runner.create();
     Runner.run(runner, engine);
 
-    // Adjust content height dynamically
+
     const viewportWidth = window.innerWidth * 1;
-    const viewportHeight = window.innerHeight * 5;
+    const viewportHeight = window.innerHeight * 8;
     content.style.width = `${viewportWidth}px`;
     content.style.height = `${viewportHeight}px`;
 
-    // Create physics boundaries (so content does not move out of bounds)
     const boundaries = [
         Bodies.rectangle(viewportWidth / 2, -50, viewportWidth, 50, { isStatic: true }),
         Bodies.rectangle(viewportWidth / 2, viewportHeight + 50, viewportWidth, 50, { isStatic: true }),
@@ -44,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
     Composite.add(world, boundaries);
 
-    // Invisible physics body that represents the scrolling content
     const bodyObject = Bodies.rectangle(
         viewportWidth / 2,
         viewportHeight / 2,
@@ -68,20 +66,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("📡 Device Orientation Data:", event.beta, event.gamma);
 
-        // Normalize tilt values
+
         const tiltX = Math.max(-90, Math.min(90, event.beta));
         const tiltY = Math.max(-90, Math.min(90, event.gamma));
 
-        // Apply force based on tilt
-        const scrollSpeed = 0.005; // Adjust scroll speed sensitivity
+
+        const scrollSpeed = 0.005; 
         targetScrollX += (tiltY / 45) * scrollSpeed * viewportWidth;
         targetScrollY += (tiltX / 45) * scrollSpeed * viewportHeight;
 
-        // Clamp scrolling within boundaries
+
         targetScrollX = Math.max(0, Math.min(viewportWidth - window.innerWidth, targetScrollX));
         targetScrollY = Math.max(0, Math.min(viewportHeight - window.innerHeight, targetScrollY));
 
-        // Apply force to physics body
+   
         Body.applyForce(bodyObject, { x: bodyObject.position.x, y: bodyObject.position.y }, {
             x: (tiltY / 90) * 0.002,
             y: (tiltX / 90) * 0.002
@@ -148,50 +146,57 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🔥 FIXED HEATMAP SIZE & TOUCH POSITION
     if (canvas) {
         const heat = simpleheat(canvas).data([]).max(18);
-        heat.radius(30, 20);
-
+    
+        function updateRadius() {
+            // Dynamically adjust radius based on screen size
+            const baseRadius = Math.min(window.innerWidth, window.innerHeight) * 0.05; // 5% of the smallest dimension
+            heat.radius(baseRadius, baseRadius * 0.75);
+        }
+    
         function resizeCanvas() {
             const dpr = window.devicePixelRatio || 1;
             const rect = canvas.getBoundingClientRect();
-
-            // ✅ Heatmap now always fits **100vw x 100vh**
+    
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
-
+    
             const ctx = canvas.getContext("2d");
             ctx.scale(dpr, dpr);
             heat.resize();
+            updateRadius();
             heat.draw();
         }
-
+    
         window.addEventListener("resize", resizeCanvas);
         resizeCanvas();
-
+    
         function getCoordinates(e) {
             const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
+    
             return {
                 x: (clientX - rect.left) * (canvas.width / rect.width),
                 y: (clientY - rect.top) * (canvas.height / rect.height)
             };
         }
-
+    
         function addHeatPoint(x, y) {
-            heat.add([x, y, 1]);
+            heat.add([x, y, 2]); 
             heat.draw();
         }
-
+    
         canvas.addEventListener("mousemove", (e) => {
             const { x, y } = getCoordinates(e);
             addHeatPoint(x, y);
         });
-
+    
         canvas.addEventListener("touchmove", (e) => {
             e.preventDefault();
             const { x, y } = getCoordinates(e);
             addHeatPoint(x, y);
-        });
+        }, { passive: false });
     }
+    
+
 });

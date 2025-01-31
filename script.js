@@ -30,18 +30,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const runner = Runner.create();
     Runner.run(runner, engine);
 
-
+    // Adjust content size
     const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight * 7; 
+    const viewportHeight = window.innerHeight * 7; // 700vh
 
-  
+    // Create physics boundaries
     const boundaries = [
         Bodies.rectangle(viewportWidth / 2, -50, viewportWidth, 50, { isStatic: true }),
         Bodies.rectangle(viewportWidth / 2, viewportHeight + 50, viewportWidth, 50, { isStatic: true }),
     ];
     Composite.add(world, boundaries);
 
-
+    // Create physics body for scrolling
     const bodyObject = Bodies.rectangle(
         viewportWidth / 2,
         viewportHeight / 2,
@@ -100,13 +100,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function animateScroll() {
         currentScrollY += (targetScrollY - currentScrollY) * 0.1;
-        content.style.transform = `translate3d(0px, ${-currentScrollY}px, 0px)`; // ✅ Fix scrolling
+        content.style.transform = `translateY(${-currentScrollY}px)`; // ✅ Use transform instead of scrollTop
         requestAnimationFrame(animateScroll);
     }
 
     animateScroll();
 
-    // 🔥 HEATMAP
+    // 🔥 FIXED HEATMAP SIZE & TOUCH POSITION
     if (canvas) {
         const heat = simpleheat(canvas).data([]).max(18);
         heat.radius(30, 20);
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const dpr = window.devicePixelRatio || 1;
             const rect = canvas.getBoundingClientRect();
 
-            *
+            // ✅ Heatmap now always fits **100vw x 100vh**
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
 
@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
+            // ✅ Fix the scaling issue that caused stretching
             return {
                 x: (clientX - rect.left) * (canvas.width / rect.width),
                 y: (clientY - rect.top) * (canvas.height / rect.height)

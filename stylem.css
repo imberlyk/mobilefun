@@ -196,6 +196,17 @@ a {
 }
 
 
+.scene-image8{
+    position: absolute;
+    width: 500px; 
+    height: auto;
+    top: 1500px; 
+    border-radius: 90px;
+    left: 1700px; 
+    box-shadow: 0 0 8px 8px #fcbcd9 inset;
+     z-index: 29;
+}
+
 
 .scene-image10{
     position: absolute;

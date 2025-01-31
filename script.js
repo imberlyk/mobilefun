@@ -1,11 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Script loaded successfully!");
+    console.log("✅ Script loaded successfully!");
 
     const { Engine, Render, Runner, Bodies, Composite, Body } = Matter;
 
     const intro = document.querySelector(".intro");
     const canvas = document.getElementById("canvas");
     const scrollableContent = document.getElementById("scrollable-content");
+
+    // Ensure scrollableContent exists
+    if (!scrollableContent) {
+        console.error("🚨 ERROR: #scrollable-content not found! Check your HTML.");
+        return;
+    }
 
     // Initialize Matter.js Physics Engine
     const engine = Engine.create();
@@ -54,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function handleDeviceOrientation(event) {
         if (!event.beta) {
-            console.warn("No orientation data detected.");
+            console.warn("🚨 No orientation data detected.");
             return;
         }
 
@@ -76,7 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function requestMotionPermission() {
-        console.log("Checking for motion permissions...");
+        console.log("🔄 Checking for motion permissions...");
+
         if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
             const permissionButton = document.createElement('button');
             permissionButton.innerText = 'Enable Motion';
@@ -87,6 +94,10 @@ document.addEventListener("DOMContentLoaded", function () {
             permissionButton.style.transform = 'translate(-50%, -50%)';
             permissionButton.style.padding = '10px 20px';
             permissionButton.style.fontSize = '18px';
+            permissionButton.style.backgroundColor = 'rgba(150,150,150,1)';
+            permissionButton.style.color = 'blue';
+            permissionButton.style.border = 'none';
+            permissionButton.style.cursor = 'pointer';
             permissionButton.style.zIndex = '10000';
 
             document.body.appendChild(permissionButton);
@@ -94,18 +105,18 @@ document.addEventListener("DOMContentLoaded", function () {
             permissionButton.addEventListener('click', () => {
                 DeviceMotionEvent.requestPermission().then(response => {
                     if (response === 'granted') {
-                        console.log("Motion permission granted.");
+                        console.log("✅ Motion permission granted.");
                         window.addEventListener('deviceorientation', handleDeviceOrientation);
                         permissionButton.remove();
                     } else {
-                        alert('Motion permission denied.');
+                        alert('🚨 Motion permission denied.');
                     }
                 }).catch(error => {
-                    console.error("Error requesting permission:", error);
+                    console.error("🚨 Error requesting permission:", error);
                 });
             });
         } else {
-            console.log("No permission required (non-iOS).");
+            console.log("🔄 No permission required (non-iOS).");
             window.addEventListener('deviceorientation', handleDeviceOrientation);
         }
     }

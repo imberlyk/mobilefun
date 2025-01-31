@@ -48,7 +48,8 @@ body {
     padding: 25px;
     padding-top:10vh;
     color: blue;
-    width:80%;
+    width:100vw;
+    padding-right: 30px;
     height: 650vh;
     overflow-y: auto;
     position: relative;

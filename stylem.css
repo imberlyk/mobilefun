@@ -127,7 +127,7 @@ a {
     height: auto;
     top: 400px; 
     left: 1200px; 
-    box-shadow: 0 0 8px 8px #0000FF inset;
+    box-shadow: 0 0 8px 8px  #fcbcd9 inset;
     z-index: 32;
 
 }
@@ -139,7 +139,7 @@ a {
     height: auto;
     top: 400px; 
     left: 1200px; 
-    box-shadow: 0 0 8px 8px #0000FF inset;
+    box-shadow: 0 0 8px 8px  #fcbcd9 inset;
 
     z-index: 33;
 }
@@ -151,7 +151,7 @@ a {
     height: auto;
     top: 800px; 
     left: 1200px; 
-    box-shadow: 0 0 8px 8px #0000FF inset;
+    box-shadow: 0 0 8px 8px #fcbcd9 inset;
 
     z-index: 29;
 }
@@ -163,7 +163,7 @@ a {
     height: auto;
     top: 100px; 
     left: 4000px; 
-    box-shadow: 0 0 8px 8px #0000FF inset;
+    box-shadow: 0 0 8px 8px #fcbcd9 inset;
 
     z-index: 29;
 }
@@ -174,7 +174,7 @@ a {
     height: auto;
     top: 600px; 
     left: 1000px; 
-    box-shadow: 0 0 8px 8px #0000FF inset;
+    box-shadow: 0 0 8px 8px  #fcbcd9 inset;
      z-index: 29;
 }
 
@@ -185,7 +185,7 @@ a {
     height: auto;
     top: 100px; 
     left: 2400px; 
-    box-shadow: 0 0 8px 8px #0000FF inset;
+    box-shadow: 0 0 8px 8px #fcbcd9 inset;
      z-index: 29;
 }
 

@@ -51,7 +51,7 @@ body {
     width:100vw;
     padding-right: 50px;
     height: 650vh;
-    position: relative;
+    position: absolute;
     z-index: 2;
    
  

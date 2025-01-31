@@ -2,14 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const { Engine, Render, World, Bodies, Body } = Matter;
 
     const intro = document.querySelector(".intro");
-    const content = document.querySelector(".content");
     const canvas = document.getElementById("canvas");
 
     // Initialize Matter.js Physics Engine
     const engine = Engine.create();
     const world = engine.world;
 
-    // Hidden canvas for physics simulation
+    // Render hidden canvas for physics simulation
     const render = Render.create({
         element: document.body,
         engine: engine,
@@ -27,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         window.innerWidth, window.innerHeight * 5,
         {
             isStatic: false,
-            frictionAir: 0.08, // Slow movement for smoother reaction
+            frictionAir: 0.15, // Slow reaction for smoother tilt control
             restitution: 0.2,  // Reduce bounce effect
             render: { visible: false }
         }
@@ -40,18 +39,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Update scroll position based on physics body movement
     Matter.Events.on(engine, "afterUpdate", function () {
-        window.scrollTo(0, bodyObject.position.y - window.innerHeight / 2);
+        window.scrollTo({
+            top: bodyObject.position.y - window.innerHeight / 2,
+            behavior: "smooth"
+        });
     });
 
-    // Handle Device Tilt (Phone Tilting)
+    // Device Tilt Controls for Scroll
     if (window.DeviceOrientationEvent) {
         window.addEventListener("deviceorientation", function (event) {
-            let tilt = event.beta; // Forward/Backward tilt (-90 to 90)
+            let tilt = event.beta; // Forward/backward tilt (-90 to 90)
+            let threshold = 5; // Minimum tilt to trigger movement
 
-            if (Math.abs(tilt) > 5) {
+            if (Math.abs(tilt) > threshold) {
+                let force = tilt * 0.0003; // Adjusted force for smoother response
                 Body.applyForce(bodyObject, { x: bodyObject.position.x, y: bodyObject.position.y }, {
-                    x: 0,
-                    y: tilt * 0.00015 // Adjusted force for slower reaction
+                    x: 0, 
+                    y: force
                 });
             }
         });
@@ -61,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function handleScroll() {
         let scrollTop = window.scrollY || document.documentElement.scrollTop;
         let maxScale = 12.5;
-        let shrinkSpeed = 50; 
+        let shrinkSpeed = 50;
         let scaleValue = Math.max(0, maxScale - scrollTop / shrinkSpeed);
 
         // Apply scale effect

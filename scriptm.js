@@ -76,6 +76,7 @@ for (let i = 0; i < 100; i++) {
     star.style.height = '10px';
     star.style.backgroundColor = '#001eff';
     star.style.borderRadius = '50%';
+    star.style.zIndex = '666'
     
     // Initial position relative to viewport
     star.dataset.initialX = Math.random() * window.innerWidth; 

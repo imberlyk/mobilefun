@@ -80,7 +80,6 @@ a {
 
 }
 
-
 .top {
     position: fixed;
     z-index: 600;
@@ -190,8 +189,8 @@ a {
     position: absolute;
     width: 500px; 
     height: auto;
-    top: 100px; 
-    left: 2400px; 
+    top: 2000px; 
+    left: 1000px; 
     border-radius: 90px;
     box-shadow: 0 0 8px 8px #fcbcd9 inset;
      z-index: 29;

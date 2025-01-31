@@ -48,8 +48,9 @@ a {
 
 h1 {
     color: #001eff;
-    font-size: 65px;
+    font-size: 45px;
     padding-left: 10px;
+    text-align: center;
     font-family: "Rubik Puddles", serif;
     position: fixed;
     font-weight: normal;
@@ -66,6 +67,7 @@ a {
     font-family: "serial";
     position: fixed;
     font-weight: normal;
+    text-decoration: none;
     z-index: 777;
 
 }

@@ -27,13 +27,6 @@ body {
 
 
 
-.next:active{
-    font-family: "Rubik Puddles", serif;
-    color:rgb(255, 0, 238);
-    letter-spacing: 4px;
-    
-}
-
 
 .container {
     position: absolute;

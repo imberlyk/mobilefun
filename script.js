@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+    console.log("Script loaded successfully!");
+
     const { Engine, Render, Runner, Bodies, Composite, Body } = Matter;
 
     const intro = document.querySelector(".intro");
@@ -51,6 +53,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentScrollY = 0;
 
     function handleDeviceOrientation(event) {
+        if (!event.beta) {
+            console.warn("No orientation data detected.");
+            return;
+        }
+
         let tilt = event.beta; // Forward/Backward tilt (-90 to 90)
         let neutralPosition = 90; // Holding phone upright
         let tiltOffset = tilt - neutralPosition;
@@ -69,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function requestMotionPermission() {
+        console.log("Checking for motion permissions...");
         if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
             const permissionButton = document.createElement('button');
             permissionButton.innerText = 'Enable Motion';
@@ -86,14 +94,18 @@ document.addEventListener("DOMContentLoaded", function () {
             permissionButton.addEventListener('click', () => {
                 DeviceMotionEvent.requestPermission().then(response => {
                     if (response === 'granted') {
+                        console.log("Motion permission granted.");
                         window.addEventListener('deviceorientation', handleDeviceOrientation);
                         permissionButton.remove();
                     } else {
                         alert('Motion permission denied.');
                     }
-                }).catch(console.error);
+                }).catch(error => {
+                    console.error("Error requesting permission:", error);
+                });
             });
         } else {
+            console.log("No permission required (non-iOS).");
             window.addEventListener('deviceorientation', handleDeviceOrientation);
         }
     }
@@ -112,27 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     animateScroll();
-
-    // ScaleY Effect on Scroll
-    function handleScroll() {
-        let scrollTop = window.scrollY || document.documentElement.scrollTop;
-        let maxScale = 12.5;
-        let shrinkSpeed = 50;
-        let scaleValue = Math.max(0, maxScale - scrollTop / shrinkSpeed);
-
-        // Apply scale effect
-        intro.style.transform = `scaleY(${scaleValue})`;
-
-        // Fade out when fully shrunk
-        intro.style.opacity = scaleValue <= 1 ? "0" : "1";
-
-        // Hide when almost invisible
-        if (scaleValue <= 0.1) {
-            intro.style.display = "none";
-        }
-    }
-
-    window.addEventListener("scroll", handleScroll);
 
     // 🔥 HEATMAP FUNCTIONALITY (Restored)
     if (canvas) {

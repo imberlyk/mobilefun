@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const intro = document.querySelector(".intro");
     const canvas = document.getElementById("canvas");
-    const scrollableContent = document.getElementById("scrollable-content");
+    const scrollableContent = document.getElementById("content");
 
     // Ensure scrollableContent exists
     if (!scrollableContent) {

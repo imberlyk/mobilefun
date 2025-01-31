@@ -52,7 +52,7 @@ const createTextDiv = (x, y, text, className) => {
 };
 
 // ADD TEXT DIVS
-createTextDiv(300, 400, 'WOW', 'text-box');
+createTextDiv(300, 400, 'Ahh, The Dress, a perfect analogy for delusion. In 2015, this image shook the internet, an optical illusion that crystallizes differently for each person. You might see a black and blue dress, or you might see a white and gold dress. Isnt that crazy ? Lol.', 'text-box');
 createTextDiv(2000, 1200, 'THIS MIGHT BE ANNOYING', 'text-box');
 createTextDiv(800, 700, 'GLAD YOU FOUND THIS', 'text-box');
 createTextDiv(100, 3000, 'AOAOAOAO', 'text-box');

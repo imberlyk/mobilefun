@@ -22,8 +22,8 @@ body {
     padding: 20px 40px;
     font-size: 18px;
     font-family: "instrument serif";
-    color:#fcbcd9;
-    background-color:#0000FF;
+    color:blue;
+    background-color:#fcbcd9;
     border: none;
     border-radius: 5px;
     z-index: 999;

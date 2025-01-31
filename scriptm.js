@@ -72,12 +72,18 @@ for (let i = 0; i < 100; i++) {
     const star = document.createElement('div');
     star.classList.add('star');
     star.style.position = 'absolute';
-    star.style.width = '30px';
-    star.style.height = '30px';
+    star.style.width = '10px'; // Smaller for better effect
+    star.style.height = '10px';
     star.style.backgroundColor = '#001eff';
     star.style.borderRadius = '50%';
-    star.style.left = `${Math.random() * window.innerWidth}px`; 
-    star.style.top = `${Math.random() * window.innerHeight}px`; 
+    
+    // Initial position relative to viewport
+    star.dataset.initialX = Math.random() * window.innerWidth; 
+    star.dataset.initialY = Math.random() * window.innerHeight;
+
+    star.style.left = `${star.dataset.initialX}px`;
+    star.style.top = `${star.dataset.initialY}px`;
+    
     starsContainer.appendChild(star);
     stars.push(star);
 }
@@ -115,7 +121,7 @@ function handleDeviceOrientation(event) {
         const tiltX = Math.max(-90, Math.min(90, event.beta));
         const tiltY = Math.max(-90, Math.min(90, event.gamma));
 
-        const scrollSpeed = 5; // Reduced speed for smoother movement
+        const scrollSpeed = 3; // Reduced speed for smoother movement
         targetScrollX += (tiltY / 45) * scrollSpeed;
         targetScrollY += (tiltX / 45) * scrollSpeed;
 
@@ -133,13 +139,14 @@ function animate() {
     // Move content
     scrollableContent.style.transform = `translate(${-currentScrollX}px, ${-currentScrollY}px)`;
 
-    // Move stars dynamically
+    // Move stars independently with parallax effect
     stars.forEach((star, index) => {
-        const parallaxFactor = 0.02 + (index / 500); // Each star moves slightly differently
-        const starX = (window.innerWidth / 2 - currentScrollX) * parallaxFactor;
-        const starY = (window.innerHeight / 2 - currentScrollY) * parallaxFactor;
+        const parallaxFactor = (index + 1) / 200; // Adjust parallax speed per star
+        const offsetX = Math.sin(Date.now() * 0.0005 + index) * 5; // Adds slight twinkle effect
+        const starX = parseFloat(star.dataset.initialX) + (targetScrollX * parallaxFactor) + offsetX;
+        const starY = parseFloat(star.dataset.initialY) + (targetScrollY * parallaxFactor);
 
-        star.style.transform = `translate(${starX}px, ${starY}px)`;
+        star.style.transform = `translate(${starX - window.innerWidth / 2}px, ${starY - window.innerHeight / 2}px)`;
     });
 
     requestAnimationFrame(animate);

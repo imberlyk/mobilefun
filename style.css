@@ -53,8 +53,8 @@ body {
     left: 0;
     width: 100vw;
     height: 650vh;
-    touch-action: pan-down;
-    z-index: 5;
+    
+    z-index: 1;
    }
 
 .content {

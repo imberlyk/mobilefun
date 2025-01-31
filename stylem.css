@@ -38,7 +38,7 @@ body {
     top: 0;
     left: 0;
     pointer-events: none;
-    z-index: 9999; /* Ensures it's above everything */
+    z-index: 9999;
 }
 
 .star {
@@ -47,7 +47,7 @@ body {
     height: 10px;
     background-color: #001eff;
     border-radius: 50%;
-    z-index: 9999; /* Ensures stars are visible */
+    z-index: 9999; 
 }
 
 
@@ -104,6 +104,7 @@ a {
     height: auto;
     top: 250px; 
     z-index: 30;
+    box-shadow: 0 0 8px 8px #fcbcd9 inset;
     left: 100px; 
 
 }
@@ -112,6 +113,7 @@ a {
     position: absolute;
     width: 200px; 
     height: auto;
+    box-shadow: 0 0 8px 8px #fcbcd9 inset;
     top: 2000px; 
     left: 800px; 
 
@@ -123,6 +125,7 @@ a {
     height: auto;
     top: 400px; 
     left: 1200px; 
+    box-shadow: 0 0 8px 8px #fcbcd9 inset;
     z-index: 32;
 
 }
@@ -134,6 +137,7 @@ a {
     height: auto;
     top: 400px; 
     left: 1200px; 
+    box-shadow: 0 0 8px 8px #fcbcd9 inset;
 
     z-index: 33;
 }
@@ -145,6 +149,7 @@ a {
     height: auto;
     top: 800px; 
     left: 1200px; 
+    box-shadow: 0 0 8px 8px #fcbcd9 inset;
 
     z-index: 29;
 }

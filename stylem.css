@@ -7,6 +7,12 @@ body {
     transform-origin: top left;
 }
 
+@font-face {
+    font-family: 'serial';
+    src: url('SerialA-Input.ttf');
+  }
+
+
 #motion-permission {
     position: fixed;
     font-family: "Rubik Puddles", serif;
@@ -41,7 +47,7 @@ a {
 
 h1 {
     color: #001eff;
-    font-size: 20px;
+    font-size: 65px;
     padding-left: 10px;
     font-family: "Rubik Puddles", serif;
     position: fixed;
@@ -49,6 +55,20 @@ h1 {
     z-index: 777;
 
 }
+
+
+h2 {
+    color: #001eff;
+    font-size: 65px;
+    padding-left: 10px;
+    bottom: 5px;
+    font-family: "serial";
+    position: fixed;
+    font-weight: normal;
+    z-index: 777;
+
+}
+
 
 .top {
     position: fixed;

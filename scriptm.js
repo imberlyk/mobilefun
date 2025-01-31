@@ -53,8 +53,8 @@ const createTextDiv = (x, y, text, className) => {
 
 // ADD TEXT DIVS
 createTextDiv(300, 400, 'Ahh, The Dress, a perfect analogy for delusion. In 2015, this image shook the internet, an optical illusion that crystallizes differently for each person. You might see a black and blue dress, or you might see a white and gold dress. Isnt that crazy ? Lol.', 'text-box');
-createTextDiv(2000, 1200, 'THIS MIGHT BE ANNOYING', 'text-box');
-createTextDiv(800, 700, 'GLAD YOU FOUND THIS', 'text-box');
+createTextDiv(2000, 1200, 'This is, imo, a form of delusion. While there’s no denying that people perceive different colors, there is still one objective truth, an undeniable fact, even if individual perception cant be dismissed. In this case, we moved from a collective delusion, uncertainty about the dresss true colors, to the realization that, even though I know the dress is black and blue, my brain simply refuses to see it as anything but white and gold.', 'text-box');
+createTextDiv(800, 700, 'The concept of delulu is undeniably intriguing. At times, all I want in life is to simply hihi and haha to exist in a space where seriousness takes a backseat. Delulu offers a kind of refuge, a soft, cushioned hideaway from the harshness of reality when it feels particularly unforgiving.', 'text-box');
 createTextDiv(100, 3000, 'AOAOAOAO', 'text-box');
 
 // CREATE STARS

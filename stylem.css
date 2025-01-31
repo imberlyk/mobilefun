@@ -175,9 +175,33 @@ a {
     top: 600px; 
     left: 1000px; 
     box-shadow: 0 0 8px 8px #0000FF inset;
-
-    z-index: 29;
+     z-index: 29;
 }
+
+
+.scene-image9 {
+    position: absolute;
+    width: 500px; 
+    height: auto;
+    top: 100px; 
+    left: 2400px; 
+    box-shadow: 0 0 8px 8px #0000FF inset;
+     z-index: 29;
+}
+
+
+
+.scene-image10{
+    position: absolute;
+    width: 500px; 
+    height: auto;
+    top: 50px; 
+    left: 300px; 
+    box-shadow: 0 0 8px 8px #0000FF inset;
+     z-index: 29;
+}
+
+
 .back {
     position: fixed;
     top: 50%;

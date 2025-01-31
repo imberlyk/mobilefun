@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    // Create Matter.js physics engine
+
     const engine = Engine.create();
     const world = engine.world;
     world.gravity.y = 0;
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     const viewportWidth = window.innerWidth * 1;
-    const viewportHeight = window.innerHeight * 7;
+    const viewportHeight = window.innerHeight * 6;
     content.style.width = `${viewportWidth}px`;
     content.style.height = `${viewportHeight}px`;
 
@@ -143,13 +143,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    // 🔥 FIXED HEATMAP SIZE & TOUCH POSITION
+    // 🔥 HEATMAP 
     if (canvas) {
         const heat = simpleheat(canvas).data([]).max(18);
     
         function updateRadius() {
-            // Dynamically adjust radius based on screen size
-            const baseRadius = Math.min(window.innerWidth, window.innerHeight) * 0.05; // 5% of the smallest dimension
+        
+            const baseRadius = Math.min(window.innerWidth, window.innerHeight) * 0.05; 
             heat.radius(baseRadius, baseRadius * 0.75);
         }
     

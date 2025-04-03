@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     Runner.run(runner, engine);
 
     const viewportWidth = window.innerWidth * 1;
-    const viewportHeight = window.innerHeight * 10;
+    const viewportHeight = window.innerHeight * 8;
     content.style.width = `${viewportWidth}px`;
     content.style.height = `${viewportHeight}px`;
 

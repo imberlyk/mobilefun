@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function updateRadius() {
             const baseRadius = Math.min(window.innerWidth, window.innerHeight) * 0.05; 
-            heat.radius(baseRadius, baseRadius * 0.75);
+            heat.radius(baseRadius, baseRadius * 1);
         }
 
         function resizeCanvas() {
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         function addHeatPoint(x, y) {
-            heat.add([x, y, 2]); 
+            heat.add([x, y, 3]); 
             heat.draw();
         }
 

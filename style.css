@@ -49,6 +49,7 @@ p{
     font-size: 35px;
     pointer-events: none;
     line-height: 40px;
+    width: 90vw;
 }
 
 header{

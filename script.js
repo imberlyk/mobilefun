@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
             const permissionButton = document.createElement('button');
-            permissionButton.innerText = 'Enable Motion';
+            permissionButton.innerText = 'Enable Motion/ tilt your phone to navigate';
             permissionButton.id = 'motion-permission';
 
             Object.assign(permissionButton.style, {

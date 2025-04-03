@@ -134,7 +134,7 @@ function handleDeviceOrientation(event) {
         const tiltX = Math.max(-90, Math.min(90, event.beta));
         const tiltY = Math.max(-90, Math.min(90, event.gamma));
 
-        const scrollSpeed = 2; 
+        const scrollSpeed = 1; 
         targetScrollX += (tiltY / 45) * scrollSpeed;
         targetScrollY += (tiltX / 45) * scrollSpeed;
 

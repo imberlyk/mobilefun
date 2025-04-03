@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-
     const engine = Engine.create();
     const world = engine.world;
     world.gravity.y = 0;
@@ -28,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
     Render.run(render);
     const runner = Runner.create();
     Runner.run(runner, engine);
-
 
     const viewportWidth = window.innerWidth * 1;
     const viewportHeight = window.innerHeight * 6;
@@ -58,6 +56,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentScrollX = 0;
     let currentScrollY = 0;
 
+    // Variables to store initial upright position
+    let initialBeta = 0;
+    let initialGamma = 0;
+
     function handleDeviceOrientation(event) {
         if (event.beta === null || event.gamma === null) {
             console.warn("🚨 No orientation data detected.");
@@ -66,20 +68,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("📡 Device Orientation Data:", event.beta, event.gamma);
 
+        // If initial position is not set, set it to the first upright position
+        if (initialBeta === 0 && initialGamma === 0) {
+            initialBeta = event.beta;
+            initialGamma = event.gamma;
+        }
 
-        const tiltX = Math.max(-90, Math.min(90, event.beta));
-        const tiltY = Math.max(-90, Math.min(90, event.gamma));
-
+        // Calculate tilt relative to the initial upright position
+        const tiltX = Math.max(-90, Math.min(90, event.beta - initialBeta)); // Tilt relative to upright position
+        const tiltY = Math.max(-90, Math.min(90, event.gamma - initialGamma)); // Tilt relative to upright position
 
         const scrollSpeed = 0.005; 
         targetScrollX += (tiltY / 45) * scrollSpeed * viewportWidth;
         targetScrollY += (tiltX / 45) * scrollSpeed * viewportHeight;
 
-
         targetScrollX = Math.max(0, Math.min(viewportWidth - window.innerWidth, targetScrollX));
         targetScrollY = Math.max(0, Math.min(viewportHeight - window.innerHeight, targetScrollY));
 
-   
         Body.applyForce(bodyObject, { x: bodyObject.position.x, y: bodyObject.position.y }, {
             x: (tiltY / 90) * 0.002,
             y: (tiltX / 90) * 0.002
@@ -141,62 +146,57 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     animateScroll();
 
-
-
     // 🔥 HEATMAP 
     if (canvas) {
         const heat = simpleheat(canvas).data([]).max(18);
-    
+
         function updateRadius() {
-        
             const baseRadius = Math.min(window.innerWidth, window.innerHeight) * 0.05; 
             heat.radius(baseRadius, baseRadius * 0.75);
         }
-    
+
         function resizeCanvas() {
             const dpr = window.devicePixelRatio || 1;
             const rect = canvas.getBoundingClientRect();
-    
+
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
-    
+
             const ctx = canvas.getContext("2d");
             ctx.scale(dpr, dpr);
             heat.resize();
             updateRadius();
             heat.draw();
         }
-    
+
         window.addEventListener("resize", resizeCanvas);
         resizeCanvas();
-    
+
         function getCoordinates(e) {
             const rect = canvas.getBoundingClientRect();
             const clientX = e.touches ? e.touches[0].clientX : e.clientX;
             const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    
+
             return {
                 x: (clientX - rect.left) * (canvas.width / rect.width),
                 y: (clientY - rect.top) * (canvas.height / rect.height)
             };
         }
-    
+
         function addHeatPoint(x, y) {
             heat.add([x, y, 2]); 
             heat.draw();
         }
-    
+
         canvas.addEventListener("mousemove", (e) => {
             const { x, y } = getCoordinates(e);
             addHeatPoint(x, y);
         });
-    
+
         canvas.addEventListener("touchmove", (e) => {
             e.preventDefault();
             const { x, y } = getCoordinates(e);
             addHeatPoint(x, y);
         }, { passive: false });
     }
-    
-
 });

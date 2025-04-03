@@ -107,7 +107,7 @@ a {
     z-index: 30;
     border-radius: 90px;
     box-shadow: 0 0 8px 8px  #fcbcd9 inset;
-    left: 100px; 
+    left: 1500px; 
 
 }
 
@@ -118,7 +118,7 @@ a {
     border-radius: 50px;
     border: 3px solid #fcbcd9;
     top: 2000px; 
-    left: 800px; 
+    left: 1800px; 
 
 }
 
@@ -178,7 +178,7 @@ a {
     width: 500px; 
     height: auto;
     top: 600px; 
-    left: 1200px; 
+    left: 2500px; 
     border-radius: 90px;
     box-shadow: 0 0 8px 8px  #fcbcd9 inset;
      z-index: 29;

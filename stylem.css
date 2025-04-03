@@ -113,7 +113,7 @@ a {
 
 .scene-image2 {
     position: absolute;
-    width: 200px; 
+    width: 400px; 
     height: auto;
     border-radius: 50px;
     border: 3px solid #fcbcd9;
@@ -124,7 +124,7 @@ a {
 
 .scene-image3 {
     position: absolute;
-    width: 400px; 
+    width: 600px; 
     height: auto;
     top: 2400px; 
     left: 1200px; 
@@ -137,7 +137,7 @@ a {
 
 .scene-image4 {
     position: absolute;
-    width: 200px; 
+    width: 300px; 
     height: auto;
     top: 400px; 
     border-radius: 90px;
@@ -150,7 +150,7 @@ a {
 
 .scene-image5 {
     position: absolute;
-    width: 500px; 
+    width: 600px; 
     height: auto;
     border-radius: 90px;
     top: 1040px; 
@@ -163,7 +163,7 @@ a {
 
 .scene-image6 {
     position: absolute;
-    width: 500px; 
+    width: 700px; 
     height: auto;
     border-radius: 90px;
     top: 3000px; 
@@ -187,7 +187,7 @@ a {
 
 .scene-image9 {
     position: absolute;
-    width: 500px; 
+    width: 800px; 
     height: auto;
     top: 2000px; 
     left: 1000px; 
@@ -199,7 +199,7 @@ a {
 
 .scene-image8{
     position: absolute;
-    width: 500px; 
+    width: 600px; 
     height: auto;
     top: 1500px; 
     border-radius: 90px;

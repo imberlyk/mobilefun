@@ -56,9 +56,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentScrollX = 0;
     let currentScrollY = 0;
 
-    // Variables to store initial upright position
-    let initialBeta = 0;
-    let initialGamma = 0;
+    // ✅ Upright reference setup
+    let initialBeta = null;
+    let initialGamma = null;
+    let hasInitialOrientation = false;
+    const tiltThreshold = 3; // degrees
 
     function handleDeviceOrientation(event) {
         if (event.beta === null || event.gamma === null) {
@@ -68,17 +70,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("📡 Device Orientation Data:", event.beta, event.gamma);
 
-        // If initial position is not set, set it to the first upright position
-        if (initialBeta === 0 && initialGamma === 0) {
+        if (!hasInitialOrientation) {
             initialBeta = event.beta;
             initialGamma = event.gamma;
+            hasInitialOrientation = true;
+            console.log("🎯 Upright orientation set:", initialBeta, initialGamma);
+            return;
         }
 
-        // Calculate tilt relative to the initial upright position
-        const tiltX = Math.max(-90, Math.min(90, event.beta - initialBeta)); // Tilt relative to upright position
-        const tiltY = Math.max(-90, Math.min(90, event.gamma - initialGamma)); // Tilt relative to upright position
+        // Relative tilt from the upright baseline
+        const tiltX = event.beta - initialBeta;
+        const tiltY = event.gamma - initialGamma;
 
-        const scrollSpeed = 0.005; 
+        if (Math.abs(tiltX) < tiltThreshold && Math.abs(tiltY) < tiltThreshold) {
+            return; // Ignore small shakes
+        }
+
+        const scrollSpeed = 0.005;
         targetScrollX += (tiltY / 45) * scrollSpeed * viewportWidth;
         targetScrollY += (tiltX / 45) * scrollSpeed * viewportHeight;
 
@@ -151,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const heat = simpleheat(canvas).data([]).max(18);
 
         function updateRadius() {
-            const baseRadius = Math.min(window.innerWidth, window.innerHeight) * 0.05; 
+            const baseRadius = Math.min(window.innerWidth, window.innerHeight) * 0.05;
             heat.radius(baseRadius, baseRadius * 1);
         }
 
@@ -184,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         function addHeatPoint(x, y) {
-            heat.add([x, y, 3]); 
+            heat.add([x, y, 3]);
             heat.draw();
         }
 
